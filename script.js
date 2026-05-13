@@ -62,43 +62,51 @@ const FONT_OPTIONS = [
 /**
  * Web preview: `local("…")` picks Wilcom / Windows fonts when installed.
  * Otherwise the `web` face (Google Fonts, SIL OFL) approximates the embroidery look.
- * We cannot bundle Wilcom’s proprietary font files in this static site.
+ * We cannot bundle Wilcom's proprietary font files in this static site.
  */
 const FONT_PREVIEW_MAP = {
   Algerian: {
+    // Decorative all-caps serif with inline cuts — Pirata One has the same dramatic serif flair
     locals: ["Algerian", "Algerian MT", "ALGERIAN"],
     web: "Pirata One"
   },
   Amarilo: {
+    // Upright display script — Parisienne is a much closer match than Yesteryear
     locals: ["Amarilo", "Amarillo", "AmarilloUS"],
-    web: "Yesteryear"
+    web: "Parisienne"
   },
   "Arial Rounded": {
+    // Rounded sans-serif — Nunito is visually much closer than Varela Round
     locals: [
       "Arial Rounded MT Bold",
       "Arial Rounded MT",
       "Arial Rounded",
       "ArialRoundedMTBold"
     ],
-    web: "Varela Round"
+    web: "Nunito"
   },
   Bauhaus: {
+    // Geometric sans inspired by Bauhaus movement — Josefin Sans is far closer than Baumans
     locals: ["Bauhaus 93", "Bauhaus Std", "Bauhaus", "BAUHS93"],
-    web: "Baumans"
+    web: "Josefin Sans"
   },
   BravoSC: {
+    // Tall condensed all-caps — Bebas Neue is a near-perfect match
     locals: ["BravoSC", "Bravo SC", "Bravo"],
     web: "Bebas Neue"
   },
   Cooper: {
+    // Heavy rounded serif — Ultra is the closest Google Fonts match to Cooper Black
     locals: ["Cooper Black", "Cooper", "Cooper Std Black"],
-    web: "Fraunces"
+    web: "Ultra"
   },
   "FTY Ironhorse": {
+    // Bold condensed western/collegiate — Teko Bold is much closer than Holtwood One SC
     locals: ["FTY Ironhorse", "FTY IRONHORSE NCV", "FTY IRONHORSE", "FTYIronhorse"],
-    web: "Holtwood One SC"
+    web: "Teko"
   },
   "Franklin Gothic": {
+    // Condensed bold grotesque — Oswald is a much closer match than Libre Franklin
     locals: [
       "Franklin Gothic Medium",
       "Franklin Gothic Heavy",
@@ -106,7 +114,7 @@ const FONT_PREVIEW_MAP = {
       "Franklin Gothic Book",
       "Franklin Gothic"
     ],
-    web: "Libre Franklin"
+    web: "Oswald"
   },
   Georgia: {
     locals: ["Georgia"],
@@ -114,88 +122,109 @@ const FONT_PREVIEW_MAP = {
     tail: 'Georgia, "Times New Roman", serif'
   },
   Hessian: {
+    // Dense blackletter / Fraktur — UnifrakturMaguntia is the best Google Fonts match
     locals: ["Hessian", "HESSIAN"],
     web: "UnifrakturMaguntia"
   },
   Hobo: {
+    // Rounded, bubbly sans — Righteous has the same rounded geometric energy
     locals: ["Hobo", "Hobo Std", "HoboStd"],
-    web: "Bubblegum Sans"
+    web: "Righteous"
   },
   Jersey: {
+    // Athletic jersey lettering — Jersey 10 is an exact match
     locals: ["Jersey M54", "Jersey", "Jersey54"],
     web: "Jersey 10"
   },
   Killer: {
+    // Chunky playful display — Boogaloo captures the same hand-painted weight
     locals: ["Killer", "KILLER"],
-    web: "Freckle Face"
+    web: "Boogaloo"
   },
   "Morris Roman": {
+    // Geometric medieval serif — MedievalSharp is the closest available
     locals: ["Morris Roman", "MorrisRoman", "MORRIS"],
     web: "MedievalSharp"
   },
   Motorhead: {
+    // Heavy metal / acid gothic — Metal Mania is the best match on Google Fonts
     locals: ["Motorhead", "MOTORHEAD"],
     web: "Metal Mania"
   },
   "Old London": {
+    // Blackletter display — UnifrakturMaguntia matches its ornate style
     locals: ["Old London", "OldLondon", "OLD LONDON"],
     web: "UnifrakturMaguntia"
   },
   "Old English": {
+    // Traditional Textura blackletter — UnifrakturCook is sharper and more authentic
     locals: ["Old English Text MT", "Old English", "OldEnglishTextMT"],
     web: "UnifrakturCook"
   },
   Pointedly: {
+    // Art Deco geometric — Poiret One is the closest match on Google Fonts
     locals: ["Pointedly", "POINTEDLY"],
     web: "Poiret One"
   },
   "PR Viking": {
+    // Decorative Roman caps with ornamental serifs — Cinzel Decorative matches well
     locals: ["PR Viking", "PRViking", "Viking Normal", "PR VIKING"],
     web: "Cinzel Decorative"
   },
   Railroad: {
+    // Vintage typewriter / stamp feel — Special Elite nails the worn ink look
     locals: ["Railroad", "RAILROAD"],
     web: "Special Elite"
   },
   Railroader: {
+    // Brush-painted grunge — Rock Salt has the same rough hand-lettered texture
     locals: ["Railroader", "RAILROADER"],
     web: "Rock Salt"
   },
   Rockwell: {
+    // Geometric slab serif — Arvo is much closer to Rockwell than Roboto Slab
     locals: ["Rockwell", "Rockwell Nova", "RockwellStd"],
-    web: "Roboto Slab"
+    web: "Arvo"
   },
   Rye: {
+    // Western display serif — Rye is available directly on Google Fonts, exact match
     locals: ["Rye"],
     web: "Rye"
   },
   Sectar: {
+    // Futuristic geometric — Orbitron is the best sci-fi match on Google Fonts
     locals: ["Sectar", "SECTAR"],
     web: "Orbitron"
   },
   Script: {
+    // Formal cursive — Dancing Script better captures the Script MT Bold weight and flow
     locals: ["Script MT Bold", "Script", "Script MT"],
-    web: "Great Vibes"
+    web: "Dancing Script"
   },
   "Stars & Love": {
+    // Casual rounded script — Pacifico is the closest bubbly cursive on Google Fonts
     locals: ["Stars & Love", "Stars and Love", "StarsLove"],
     web: "Pacifico"
   },
   Stencil: {
+    // Military stencil — Stardos Stencil has the same cut-out letterform style
     locals: ["Stencil", "Stencil Std", "StencilStd"],
     web: "Stardos Stencil"
   },
   Trajan: {
+    // Classical Roman inscriptional caps — Cinzel is the closest Google Fonts match
     locals: ["Trajan Pro", "Trajan Pro 3", "Trajan", "TrajanPro"],
     web: "Cinzel"
   },
   Viking: {
+    // Bold runic / Germanic — Germania One matches the sharp angular letterforms
     locals: ["Viking", "VIKING"],
     web: "Germania One"
   },
   Western: {
+    // Wild West serif — Rye is far more western than Alfa Slab One
     locals: ["Western", "WesternStd", "WESTERN"],
-    web: "Alfa Slab One"
+    web: "Rye"
   }
 };
 
