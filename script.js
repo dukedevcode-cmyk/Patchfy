@@ -11,6 +11,8 @@ const bgColorSelect = document.getElementById("bg-color-select");
 const borderColorSelect = document.getElementById("border-color-select");
 const sizeRange = document.getElementById("size-range");
 const sizeReadout = document.getElementById("size-readout");
+const fontSizeRange = document.getElementById("font-size-range");
+const fontSizeReadout = document.getElementById("font-size-readout");
 
 const fontPicker = document.getElementById("font-picker");
 const fontPickerTrigger = document.getElementById("font-picker-trigger");
@@ -154,7 +156,8 @@ function defaultSlot() {
     textColor: "#FFFFFF",
     bgColor: "#121212",
     borderColor: "#FFFFFF",
-    widthCm: 30
+    widthCm: 30,
+    fontSize: 12
   };
 }
 
@@ -267,6 +270,20 @@ function updateSizeReadout() {
   sizeReadout.textContent = `${slot.widthCm} cm`;
 }
 
+function updateFontSizeReadout() {
+  const slot = getActiveSlot();
+  const pct = Math.round(((slot.fontSize - 8) / (22 - 8)) * 100);
+  let label = "Small";
+  if (pct >= 65) label = "Large";
+  else if (pct >= 35) label = "Medium";
+  fontSizeReadout.textContent = label;
+}
+
+function syncFontSizeSlider() {
+  const slot = getActiveSlot();
+  fontSizeRange.value = String(slot.fontSize ?? 12);
+}
+
 function setDualUiVisible(visible) {
   dualPatchTarget.hidden = !visible;
   dualPatchTarget.style.display = visible ? "" : "none";
@@ -361,6 +378,8 @@ function syncControlsFromActiveSlot() {
   slot.borderColor = borderColorSelect.value;
   syncSizeSlider();
   updateSizeReadout();
+  syncFontSizeSlider();
+  updateFontSizeReadout();
 }
 
 function renderArcSvg(el, arcKind, slot) {
@@ -406,10 +425,11 @@ function renderArcSvg(el, arcKind, slot) {
   textEl.setAttribute("font-family", fontFamilyCss(slot.font));
   textEl.setAttribute(
     "font-size",
-    String(Math.round(Math.max(14, Math.min(42, w * 0.12))))
+    String(Math.round(w * (slot.fontSize / 100) * (100 / 12)))
   );
   textEl.setAttribute("font-weight", "700");
   textEl.setAttribute("letter-spacing", "2");
+  textEl.setAttribute("text-transform", "uppercase");
   textEl.setAttribute("dominant-baseline", "middle");
 
   const tp = document.createElementNS(NS, "textPath");
@@ -440,6 +460,7 @@ function renderDivPatch(el, geomShape, slot) {
   const h = getPatchHeightPx(geomShape, slot);
 
   el.style.fontFamily = fontFamilyCss(slot.font);
+  el.style.fontSize = `${Math.round(w * (slot.fontSize / 100) * (100 / 12))}px`;
   el.style.color = slot.textColor;
   el.style.backgroundColor = slot.bgColor;
   el.style.borderColor = slot.borderColor;
@@ -560,6 +581,12 @@ sizeRange.addEventListener("input", (e) => {
   const idx = Number(e.target.value);
   getActiveSlot().widthCm = WIDTH_CM[idx] ?? 30;
   updateSizeReadout();
+  renderPatch();
+});
+
+fontSizeRange.addEventListener("input", (e) => {
+  getActiveSlot().fontSize = Number(e.target.value);
+  updateFontSizeReadout();
   renderPatch();
 });
 
