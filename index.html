@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patch For You customizer</title>
+
+  <link rel="stylesheet" href="style.css">
+  <!-- UI + web preview fallbacks (SIL OFL). Wilcom TTFs use local() when installed. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Pirata+One&family=Yesteryear&family=Varela+Round&family=Baumans&family=Bebas+Neue&family=Fraunces:wght@400;600;900&family=Holtwood+One+SC&family=Libre+Franklin:wght@400;600;700&family=UnifrakturMaguntia&family=Germania+One&family=Bubblegum+Sans&family=Jersey+10&family=Freckle+Face&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Metal+Mania&family=UnifrakturCook&family=Poiret+One&family=Cinzel+Decorative&family=Special+Elite&family=Rock+Salt&family=Roboto+Slab:wght@400;700&family=Rye&family=Orbitron:wght@400;700&family=Great+Vibes&family=Pacifico&family=Stardos+Stencil:wght@400;700&family=Cinzel:wght@400;700&family=Alfa+Slab+One&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="page">
+    <header class="site-header">
+      <h1 class="site-title">Patch For You customizer</h1>
+    </header>
+
+    <p class="intro">
+      Use the tools below to customize your patch.
+      Feel free to customize it however you like.
+      We'll take care of the rest 😉
+    </p>
+
+    <main class="main-card">
+      <div class="layout">
+        <div class="preview-column">
+          <div class="preview-column-inner">
+            <div class="preview-frame">
+              <div id="preview-stack" class="preview-stack">
+                <div id="patch-preview-top" class="patch-preview">Your Name</div>
+                <div id="patch-preview-bottom" class="patch-preview patch-preview--dual" aria-hidden="true">Your Name</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <h2 class="controls-heading">Customize</h2>
+
+          <label class="field">
+            <span class="field-label">Shape</span>
+            <select id="shape-select" class="input-control">
+              <option value="rounded">Rectangle</option>
+              <option value="circle">Circle</option>
+              <option value="top-arc">Top arch</option>
+              <option value="bottom-arc">Bottom arch</option>
+              <option value="rocker">Rocker</option>
+              <option value="dual">Top + bottom</option>
+            </select>
+          </label>
+
+          <div id="dual-patch-target" class="dual-target" hidden>
+            <span class="field-label">Editing</span>
+            <div class="segmented" role="radiogroup" aria-label="Which patch to edit">
+              <button type="button" class="segmented__btn is-active" data-slot="0" aria-pressed="true">Upper patch</button>
+              <button type="button" class="segmented__btn" data-slot="1" aria-pressed="false">Lower patch</button>
+            </div>
+            <p class="field-note">Upper uses top arch, lower uses bottom arch. Each has its own text, colors, and size.</p>
+          </div>
+
+          <label class="field">
+            <span class="field-label">Text</span>
+            <input type="text" id="text-input" class="input-control" value="Your Name" maxlength="40">
+          </label>
+
+          <div class="field font-field">
+            <span class="field-label">Font</span>
+            <div class="font-picker" id="font-picker">
+              <button type="button" class="font-picker__trigger input-control" id="font-picker-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="font-picker__trigger-row">
+                  <span class="font-picker__trigger-sample" id="font-picker-trigger-sample" aria-hidden="true">Aa Patch</span>
+                  <span class="font-picker__trigger-label" id="font-picker-trigger-label">Georgia</span>
+                </span>
+                <span class="font-picker__chevron" aria-hidden="true"></span>
+              </button>
+              <ul class="font-picker__list" id="font-picker-list" role="listbox" tabindex="-1" hidden></ul>
+            </div>
+            <p class="field-note">Preview uses your installed Wilcom/system fonts when available (<code>local()</code>); otherwise it loads a similar open font from Google Fonts for the same look in the browser.</p>
+          </div>
+
+          <label class="field">
+            <span class="field-label">Embroidery color</span>
+            <select id="text-color-select" class="input-control"></select>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Background color</span>
+            <select id="bg-color-select" class="input-control"></select>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Border color</span>
+            <select id="border-color-select" class="input-control"></select>
+          </label>
+
+          <div class="field">
+            <div class="field-label-row">
+              <span class="field-label">Width</span>
+              <span id="size-readout" class="field-hint" aria-live="polite">30 cm</span>
+            </div>
+            <input type="range" id="size-range" class="input-range" min="0" max="5" value="2" step="1">
+            <div class="range-ticks" aria-hidden="true">
+              <span>25</span><span>28</span><span>30</span><span>33</span><span>36</span><span>40</span>
+            </div>
+            <p class="field-note">Height scales proportionally with width.</p>
+          </div>
+
+          <label class="field">
+            <span class="field-label">Quantity</span>
+            <select id="quantity-select" class="input-control" aria-label="Quantity">
+            </select>
+          </label>
+
+          <button type="button" class="btn-cart" id="add-to-cart">Add to cart</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
