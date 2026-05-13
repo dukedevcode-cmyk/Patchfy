@@ -77,7 +77,7 @@ const FONT_PREVIEW_MAP = {
   Killer:            "Boogaloo",
   "Morris Roman":    "MedievalSharp",
   Motorhead:         "Metal Mania",
-  "Old London":      "UnifrakturMaguntia",
+  "Old London":      "OldLondon",
   "Old English":     "CloisterBlack",
   Pointedly:         "Poiret One",
   "PR Viking":       "Cinzel Decorative",
@@ -410,7 +410,6 @@ function renderArcSvg(el, arcKind, slot) {
   );
   textEl.setAttribute("font-weight", "700");
   textEl.setAttribute("letter-spacing", "2");
-  textEl.setAttribute("text-transform", "uppercase");
   textEl.setAttribute("dominant-baseline", "middle");
 
   const tp = document.createElementNS(NS, "textPath");
