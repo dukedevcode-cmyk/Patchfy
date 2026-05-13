@@ -79,8 +79,8 @@ const FONT_PREVIEW_MAP = {
   Killer:            "Boogaloo",
   "Morris Roman":    "MedievalSharp",
   Motorhead:         "Metal Mania",
-  "Old London":      "OldLondon",
-  "Old English":     "CloisterBlack",
+  "Old London":      "OldLondon",       // local: fonts/OldLondon.ttf
+  "Old English":     "OldEnglishTextMT", // local: fonts/oldenglishtextmt.ttf
   Pointedly:         "Poiret One",
   "PR Viking":       "Cinzel Decorative",
   Railroad:          "Special Elite",
@@ -146,8 +146,8 @@ const PALETTE_BORDER = [
   { label: "Verde floresta", value: "#166534" }
 ];
 
-const ARC_CURVE_INSET = 0.28;
-const ARC_BUMP = 0.14;
+const ARC_CURVE_INSET = 0.32;
+const ARC_BUMP = 0.24;
 
 function defaultSlot() {
   return {
@@ -157,7 +157,7 @@ function defaultSlot() {
     bgColor: "#121212",
     borderColor: "#FFFFFF",
     widthCm: 30,
-    fontSize: 12
+    textWidthCm: 15
   };
 }
 
@@ -180,6 +180,23 @@ function getPatchWidthPx(slot) {
   return Math.round((slot.widthCm / REFERENCE_CM) * PREVIEW_W_AT_REF);
 }
 
+function getTextWidthPx(slot) {
+  return Math.round((slot.textWidthCm / REFERENCE_CM) * PREVIEW_W_AT_REF);
+}
+
+// Safe maximum text width — conservatively 80% of patch width so text never
+// bleeds past the border on any shape (div or SVG arc).
+function getMaxTextWidthCm(widthCm) {
+  return Math.round(widthCm * 0.80 * 2) / 2; // nearest 0.5 cm
+}
+
+function measureTextWidthPx(text, fontFamily, fontSize) {
+  const canvas = measureTextWidthPx._canvas || (measureTextWidthPx._canvas = document.createElement("canvas"));
+  const ctx = canvas.getContext("2d");
+  ctx.font = `700 ${fontSize}px ${fontFamily}`;
+  return ctx.measureText(text).width;
+}
+
 function getPatchHeightPx(geomShape, slot) {
   const w = getPatchWidthPx(slot);
   if (geomShape === "circle") return w;
@@ -200,21 +217,21 @@ function topArchOutlineD(w, h) {
   return `M 0 ${yTop} Q ${w / 2} ${ctrlTopY} ${w} ${yTop} L ${w} ${yBot} Q ${w / 2} ${h} 0 ${yBot} Z`;
 }
 
+// Fraction of the outline deflection applied to the text path (< 1 = less curved).
+const TEXT_CURVE_RATIO = 0.72;
+
 function bottomArchTextPathD(w, h) {
-  const yTop = h * ARC_CURVE_INSET;
   const yChord = h * 0.5;
-  const bump = yTop * 0.92;
-  const yCtrl = yChord - bump;
+  const yCtrl = h * (0.5 - ARC_CURVE_INSET * TEXT_CURVE_RATIO);
   return `M ${w * 0.07} ${yChord} Q ${w / 2} ${yCtrl} ${w * 0.93} ${yChord}`;
 }
 
 function topArchTextPathD(w, h) {
-  const yTop = h * ARC_CURVE_INSET;
-  const yBot = h * (1 - ARC_CURVE_INSET);
-  const ctrlTopY = Math.min(yBot - h * 0.06, yTop + h * ARC_BUMP);
-  const yChord = h * 0.5;
-  const bump = Math.max(h * 0.1, (ctrlTopY - yTop + (h - yBot)) * 0.42);
-  const yCtrl = yChord + bump;
+  // Push endpoints down from band center to clear the inner (top) edge —
+  // at h*0.5 the top of the glyph (font-size h*0.28) sits only ~5 px from
+  // the inner border; h*0.56 gives comfortable breathing room on both edges.
+  const yChord = h * 0.56;
+  const yCtrl = yChord + h * ARC_CURVE_INSET * TEXT_CURVE_RATIO;
   return `M ${w * 0.07} ${yChord} Q ${w / 2} ${yCtrl} ${w * 0.93} ${yChord}`;
 }
 
@@ -307,16 +324,19 @@ function updateSizeReadout() {
 
 function updateFontSizeReadout() {
   const slot = getActiveSlot();
-  const pct = Math.round(((slot.fontSize - 8) / (22 - 8)) * 100);
-  let label = "Small";
-  if (pct >= 65) label = "Large";
-  else if (pct >= 35) label = "Medium";
-  fontSizeReadout.textContent = label;
+  fontSizeReadout.textContent = `${slot.textWidthCm} cm`;
 }
 
 function syncFontSizeSlider() {
   const slot = getActiveSlot();
-  fontSizeRange.value = String(slot.fontSize ?? 12);
+  const min = slot.widthCm / 2;
+  const max = getMaxTextWidthCm(slot.widthCm);
+  fontSizeRange.min = String(min);
+  fontSizeRange.max = String(max);
+  fontSizeRange.step = "0.5";
+  const clamped = Math.min(max, Math.max(min, slot.textWidthCm ?? min));
+  slot.textWidthCm = clamped;
+  fontSizeRange.value = String(clamped);
 }
 
 function setDualUiVisible(visible) {
@@ -426,10 +446,12 @@ function syncControlsFromActiveSlot() {
 function renderArcSvg(el, arcKind, slot) {
   const w = getPatchWidthPx(slot);
   const h = getPatchHeightPx(arcKind, slot);
+  // "top-arc" → visually arches upward (bottom rocker outline, text follows top edge)
+  // "bottom-arc" → visually arches downward (top rocker outline, text follows bottom edge)
   const outlineD =
-    arcKind === "top-arc" ? topArchOutlineD(w, h) : bottomArchOutlineD(w, h);
+    arcKind === "top-arc" ? bottomArchOutlineD(w, h) : topArchOutlineD(w, h);
   const textCurveD =
-    arcKind === "top-arc" ? topArchTextPathD(w, h) : bottomArchTextPathD(w, h);
+    arcKind === "top-arc" ? bottomArchTextPathD(w, h) : topArchTextPathD(w, h);
   const textPathId = nextTextPathId();
   const strokeW = Math.max(5, Math.round(w * 0.028));
 
@@ -464,13 +486,9 @@ function renderArcSvg(el, arcKind, slot) {
   const textEl = document.createElementNS(NS, "text");
   textEl.setAttribute("fill", slot.textColor);
   textEl.setAttribute("font-family", fontFamilyCss(slot.font));
-  textEl.setAttribute(
-    "font-size",
-    String(Math.round(w * (slot.fontSize / 100) * (100 / 12)))
-  );
+  // Band height ≈ 40% of h; use ~70% of that so text breathes within the band
+  textEl.setAttribute("font-size", String(Math.round(h * 0.28)));
   textEl.setAttribute("font-weight", "700");
-  textEl.setAttribute("letter-spacing", "2");
-  textEl.setAttribute("text-transform", "uppercase");
   textEl.setAttribute("dominant-baseline", "middle");
 
   const tp = document.createElementNS(NS, "textPath");
@@ -478,6 +496,10 @@ function renderArcSvg(el, arcKind, slot) {
   tp.setAttributeNS("http://www.w3.org/1999/xlink", "href", `#${textPathId}`);
   tp.setAttribute("startOffset", "50%");
   tp.setAttribute("text-anchor", "middle");
+  // Hard cap: text path goes from 7% to 93% of w (~86%), keep 80% as safe limit
+  const arcTextPx = Math.min(getTextWidthPx(slot), Math.round(w * 0.80));
+  tp.setAttribute("textLength", String(arcTextPx));
+  tp.setAttribute("lengthAdjust", "spacingAndGlyphs");
   tp.textContent = slot.text;
 
   textEl.appendChild(tp);
@@ -495,13 +517,31 @@ function renderArcSvg(el, arcKind, slot) {
 
 function renderDivPatch(el, geomShape, slot) {
   el.classList.remove("patch-preview--arc");
-  el.innerText = slot.text;
+  el.replaceChildren();
 
   const w = getPatchWidthPx(slot);
   const h = getPatchHeightPx(geomShape, slot);
+  const baseFontSize = Math.round(h * 0.45);
+  // Hard cap: text must stay inside inner area (border 8px × 2 + breathing 8px × 2)
+  const safeMaxPx = w - 32;
+  const targetTextPx = Math.min(getTextWidthPx(slot), safeMaxPx);
+  const fontStack = fontFamilyCss(slot.font);
+  const naturalWidth = measureTextWidthPx(slot.text, fontStack, baseFontSize);
+  const scaleX = naturalWidth > 0 ? targetTextPx / naturalWidth : 1;
 
-  el.style.fontFamily = fontFamilyCss(slot.font);
-  el.style.fontSize = `${Math.round(w * (slot.fontSize / 100) * (100 / 12))}px`;
+  const textSpan = document.createElement("span");
+  textSpan.textContent = slot.text;
+  textSpan.style.display = "inline-block";
+  textSpan.style.whiteSpace = "nowrap";
+  textSpan.style.lineHeight = "1";
+  textSpan.style.transformOrigin = "center center";
+  textSpan.style.transform = `scaleX(${scaleX.toFixed(4)})`;
+
+  el.appendChild(textSpan);
+  el.style.fontFamily = fontStack;
+  el.style.fontSize = `${baseFontSize}px`;
+  el.style.whiteSpace = "nowrap";
+  el.style.overflow = "hidden";
   el.style.color = slot.textColor;
   el.style.backgroundColor = slot.bgColor;
   el.style.borderColor = slot.borderColor;
@@ -605,13 +645,19 @@ textInput.addEventListener("input", (e) => {
 
 sizeRange.addEventListener("input", (e) => {
   const idx = Number(e.target.value);
-  getActiveSlot().widthCm = WIDTH_CM[idx] ?? 30;
+  const slot = getActiveSlot();
+  slot.widthCm = WIDTH_CM[idx] ?? 30;
+  const minTW = slot.widthCm / 2;
+  const maxTW = getMaxTextWidthCm(slot.widthCm);
+  slot.textWidthCm = Math.min(maxTW, Math.max(minTW, slot.textWidthCm));
   updateSizeReadout();
+  syncFontSizeSlider();
+  updateFontSizeReadout();
   renderPatch();
 });
 
 fontSizeRange.addEventListener("input", (e) => {
-  getActiveSlot().fontSize = Number(e.target.value);
+  getActiveSlot().textWidthCm = Number(e.target.value);
   updateFontSizeReadout();
   renderPatch();
 });

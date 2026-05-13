@@ -1,3 +1,21 @@
+/* ── Local embroidery fonts ──────────────────────── */
+
+@font-face {
+  font-family: "OldLondon";
+  src: url('fonts/OldLondon.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "OldEnglishTextMT";
+  src: url('fonts/oldenglishtextmt.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg-page: #f6f6f4;
   --bg-elevated: #ffffff;
@@ -131,7 +149,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: clamp(24px, 4vw, 40px);
-  align-items: start;
+  align-items: center;
   justify-content: center;
   text-align: left;
 }
@@ -211,8 +229,9 @@ body {
   font-size: clamp(1.1rem, 2.5vw, 1.75rem);
   font-family: Georgia, "Times New Roman", serif;
   position: relative;
-  text-transform: uppercase;
   letter-spacing: 0.08em;
+  white-space: nowrap;
+  overflow: hidden;
   transition:
     width 0.2s ease,
     height 0.2s ease,
