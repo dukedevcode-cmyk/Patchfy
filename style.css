@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "CloisterBlack";
+  src: url("fonts/CloisterBlack.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg-page: #f6f6f4;
   --bg-elevated: #ffffff;

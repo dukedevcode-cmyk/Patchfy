@@ -78,7 +78,7 @@ const FONT_PREVIEW_MAP = {
   "Morris Roman":    "MedievalSharp",
   Motorhead:         "Metal Mania",
   "Old London":      "UnifrakturMaguntia",
-  "Old English":     "UnifrakturCook",
+  "Old English":     "CloisterBlack",
   Pointedly:         "Poiret One",
   "PR Viking":       "Cinzel Decorative",
   Railroad:          "Special Elite",
