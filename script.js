@@ -11,6 +11,8 @@ const bgColorSwatches = document.getElementById("bg-color-swatches");
 const borderColorSwatches = document.getElementById("border-color-swatches");
 const sizeRange = document.getElementById("size-range");
 const sizeReadout = document.getElementById("size-readout");
+const fontSizeRange = document.getElementById("font-size-range");
+const fontSizeReadout = document.getElementById("font-size-readout");
 
 const fontPicker = document.getElementById("font-picker");
 const fontPickerTrigger = document.getElementById("font-picker-trigger");
@@ -59,204 +61,50 @@ const FONT_OPTIONS = [
   "Western"
 ];
 
-/**
- * Web preview: `local("…")` picks Wilcom / Windows fonts when installed.
- * Otherwise the `web` face (Google Fonts, SIL OFL) approximates the embroidery look.
- * We cannot bundle Wilcom's proprietary font files in this static site.
- */
+// Maps each embroidery font to its Google Fonts fallback.
+// No local() — browser always loads the web font for a consistent preview.
 const FONT_PREVIEW_MAP = {
-  Algerian: {
-    // Decorative all-caps serif with inline cuts — Pirata One has the same dramatic serif flair
-    locals: ["Algerian", "Algerian MT", "ALGERIAN"],
-    web: "Pirata One"
-  },
-  Amarilo: {
-    // Upright display script — Parisienne is a much closer match than Yesteryear
-    locals: ["Amarilo", "Amarillo", "AmarilloUS"],
-    web: "Parisienne"
-  },
-  "Arial Rounded": {
-    // Rounded sans-serif — Nunito is visually much closer than Varela Round
-    locals: [
-      "Arial Rounded MT Bold",
-      "Arial Rounded MT",
-      "Arial Rounded",
-      "ArialRoundedMTBold"
-    ],
-    web: "Nunito"
-  },
-  Bauhaus: {
-    // Geometric sans inspired by Bauhaus movement — Josefin Sans is far closer than Baumans
-    locals: ["Bauhaus 93", "Bauhaus Std", "Bauhaus", "BAUHS93"],
-    web: "Josefin Sans"
-  },
-  BravoSC: {
-    // Tall condensed all-caps — Bebas Neue is a near-perfect match
-    locals: ["BravoSC", "Bravo SC", "Bravo"],
-    web: "Bebas Neue"
-  },
-  Cooper: {
-    // Heavy rounded serif — Ultra is the closest Google Fonts match to Cooper Black
-    locals: ["Cooper Black", "Cooper", "Cooper Std Black"],
-    web: "Ultra"
-  },
-  "FTY Ironhorse": {
-    // Bold condensed western/collegiate — Teko Bold is much closer than Holtwood One SC
-    locals: ["FTY Ironhorse", "FTY IRONHORSE NCV", "FTY IRONHORSE", "FTYIronhorse"],
-    web: "Teko"
-  },
-  "Franklin Gothic": {
-    // Condensed bold grotesque — Oswald is a much closer match than Libre Franklin
-    locals: [
-      "Franklin Gothic Medium",
-      "Franklin Gothic Heavy",
-      "Franklin Gothic Demi",
-      "Franklin Gothic Book",
-      "Franklin Gothic"
-    ],
-    web: "Oswald"
-  },
-  Georgia: {
-    locals: ["Georgia"],
-    web: null,
-    tail: 'Georgia, "Times New Roman", serif'
-  },
-  Hessian: {
-    // Dense blackletter / Fraktur — UnifrakturMaguntia is the best Google Fonts match
-    locals: ["Hessian", "HESSIAN"],
-    web: "UnifrakturMaguntia"
-  },
-  Hobo: {
-    // Rounded, bubbly sans — Righteous has the same rounded geometric energy
-    locals: ["Hobo", "Hobo Std", "HoboStd"],
-    web: "Righteous"
-  },
-  Jersey: {
-    // Athletic jersey lettering — Jersey 10 is an exact match
-    locals: ["Jersey M54", "Jersey", "Jersey54"],
-    web: "Jersey 10"
-  },
-  Killer: {
-    // Chunky playful display — Boogaloo captures the same hand-painted weight
-    locals: ["Killer", "KILLER"],
-    web: "Boogaloo"
-  },
-  "Morris Roman": {
-    // Geometric medieval serif — MedievalSharp is the closest available
-    locals: ["Morris Roman", "MorrisRoman", "MORRIS"],
-    web: "MedievalSharp"
-  },
-  Motorhead: {
-    // Heavy metal / acid gothic — Metal Mania is the best match on Google Fonts
-    locals: ["Motorhead", "MOTORHEAD"],
-    web: "Metal Mania"
-  },
-  "Old London": {
-    // Blackletter display — UnifrakturMaguntia matches its ornate style
-    locals: ["Old London", "OldLondon", "OLD LONDON"],
-    web: "UnifrakturMaguntia"
-  },
-  "Old English": {
-    // Traditional Textura blackletter — UnifrakturCook is sharper and more authentic
-    locals: ["Old English Text MT", "Old English", "OldEnglishTextMT"],
-    web: "UnifrakturCook"
-  },
-  Pointedly: {
-    // Art Deco geometric — Poiret One is the closest match on Google Fonts
-    locals: ["Pointedly", "POINTEDLY"],
-    web: "Poiret One"
-  },
-  "PR Viking": {
-    // Decorative Roman caps with ornamental serifs — Cinzel Decorative matches well
-    locals: ["PR Viking", "PRViking", "Viking Normal", "PR VIKING"],
-    web: "Cinzel Decorative"
-  },
-  Railroad: {
-    // Vintage typewriter / stamp feel — Special Elite nails the worn ink look
-    locals: ["Railroad", "RAILROAD"],
-    web: "Special Elite"
-  },
-  Railroader: {
-    // Brush-painted grunge — Rock Salt has the same rough hand-lettered texture
-    locals: ["Railroader", "RAILROADER"],
-    web: "Rock Salt"
-  },
-  Rockwell: {
-    // Geometric slab serif — Arvo is much closer to Rockwell than Roboto Slab
-    locals: ["Rockwell", "Rockwell Nova", "RockwellStd"],
-    web: "Arvo"
-  },
-  Rye: {
-    // Western display serif — Rye is available directly on Google Fonts, exact match
-    locals: ["Rye"],
-    web: "Rye"
-  },
-  Sectar: {
-    // Futuristic geometric — Orbitron is the best sci-fi match on Google Fonts
-    locals: ["Sectar", "SECTAR"],
-    web: "Orbitron"
-  },
-  Script: {
-    // Formal cursive — Dancing Script better captures the Script MT Bold weight and flow
-    locals: ["Script MT Bold", "Script", "Script MT"],
-    web: "Dancing Script"
-  },
-  "Stars & Love": {
-    // Casual rounded script — Pacifico is the closest bubbly cursive on Google Fonts
-    locals: ["Stars & Love", "Stars and Love", "StarsLove"],
-    web: "Pacifico"
-  },
-  Stencil: {
-    // Military stencil — Stardos Stencil has the same cut-out letterform style
-    locals: ["Stencil", "Stencil Std", "StencilStd"],
-    web: "Stardos Stencil"
-  },
-  Trajan: {
-    // Classical Roman inscriptional caps — Cinzel is the closest Google Fonts match
-    locals: ["Trajan Pro", "Trajan Pro 3", "Trajan", "TrajanPro"],
-    web: "Cinzel"
-  },
-  Viking: {
-    // Bold runic / Germanic — Germania One matches the sharp angular letterforms
-    locals: ["Viking", "VIKING"],
-    web: "Germania One"
-  },
-  Western: {
-    // Wild West serif — Rye is far more western than Alfa Slab One
-    locals: ["Western", "WesternStd", "WESTERN"],
-    web: "Rye"
-  }
+  Algerian:          "Pirata One",
+  Amarilo:           "Parisienne",
+  "Arial Rounded":   "Nunito",
+  Bauhaus:           "Josefin Sans",
+  BravoSC:           "Bebas Neue",
+  Cooper:            "Ultra",
+  "FTY Ironhorse":   "Teko",
+  "Franklin Gothic": "Oswald",
+  Georgia:           null,
+  Hessian:           "UnifrakturMaguntia",
+  Hobo:              "Righteous",
+  Jersey:            "Jersey 10",
+  Killer:            "Boogaloo",
+  "Morris Roman":    "MedievalSharp",
+  Motorhead:         "Metal Mania",
+  "Old London":      "OldLondon",
+  "Old English":     "CloisterBlack",
+  Pointedly:         "Poiret One",
+  "PR Viking":       "Cinzel Decorative",
+  Railroad:          "Special Elite",
+  Railroader:        "Rock Salt",
+  Rockwell:          "Arvo",
+  Rye:               "Rye",
+  Sectar:            "Orbitron",
+  Script:            "Dancing Script",
+  "Stars & Love":    "Pacifico",
+  Stencil:           "Stardos Stencil",
+  Trajan:            "Cinzel",
+  Viking:            "Germania One",
+  Western:           "Rye"
 };
 
 function fontFamilyCss(name) {
-  const spec = FONT_PREVIEW_MAP[name];
-  if (!spec) {
-    const escaped = name.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
-    return `"${escaped}", sans-serif`;
-  }
-
-  const localParts = (spec.locals || []).map((l) => {
-    const safe = l.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
-    return `local("${safe}")`;
-  });
-
-  if (spec.tail) {
-    if (localParts.length) {
-      return `${localParts.join(", ")}, ${spec.tail}`;
-    }
-    return spec.tail;
-  }
-
-  const core = [
-    ...localParts,
-    ...(spec.web ? [`"${spec.web}"`] : [])
-  ].filter(Boolean);
-
-  return `${core.join(", ")}, sans-serif`;
+  if (name === "Georgia") return 'Georgia, "Times New Roman", serif';
+  const web = FONT_PREVIEW_MAP[name];
+  if (!web) return "sans-serif";
+  return `"${web}", sans-serif`;
 }
 
 for (const f of FONT_OPTIONS) {
-  if (!FONT_PREVIEW_MAP[f]) {
+  if (!(f in FONT_PREVIEW_MAP)) {
     console.error("[Patchfy] Missing FONT_PREVIEW_MAP entry:", f);
   }
 }
@@ -308,7 +156,8 @@ function defaultSlot() {
     textColor: "#FFFFFF",
     bgColor: "#121212",
     borderColor: "#FFFFFF",
-    widthCm: 30
+    widthCm: 30,
+    fontSize: 12
   };
 }
 
@@ -333,9 +182,7 @@ function getPatchWidthPx(slot) {
 
 function getPatchHeightPx(geomShape, slot) {
   const w = getPatchWidthPx(slot);
-  if (geomShape === "circle") {
-    return w;
-  }
+  if (geomShape === "circle") return w;
   return Math.round(w * (140 / PREVIEW_W_AT_REF));
 }
 
@@ -376,7 +223,6 @@ const shapes = {
     el.style.borderRadius = "18px";
     el.style.clipPath = "";
   },
-
   circle: (el, slot) => {
     const w = getPatchWidthPx(slot);
     el.style.borderRadius = "999px";
@@ -384,7 +230,6 @@ const shapes = {
     el.style.height = `${w}px`;
     el.style.clipPath = "";
   },
-
   rocker: (el) => {
     el.style.borderRadius = "0";
     el.style.clipPath = "ellipse(100% 60% at 50% 50%)";
@@ -458,6 +303,20 @@ function syncSizeSlider() {
 function updateSizeReadout() {
   const slot = getActiveSlot();
   sizeReadout.textContent = `${slot.widthCm} cm`;
+}
+
+function updateFontSizeReadout() {
+  const slot = getActiveSlot();
+  const pct = Math.round(((slot.fontSize - 8) / (22 - 8)) * 100);
+  let label = "Small";
+  if (pct >= 65) label = "Large";
+  else if (pct >= 35) label = "Medium";
+  fontSizeReadout.textContent = label;
+}
+
+function syncFontSizeSlider() {
+  const slot = getActiveSlot();
+  fontSizeRange.value = String(slot.fontSize ?? 12);
 }
 
 function setDualUiVisible(visible) {
@@ -560,6 +419,8 @@ function syncControlsFromActiveSlot() {
   });
   syncSizeSlider();
   updateSizeReadout();
+  syncFontSizeSlider();
+  updateFontSizeReadout();
 }
 
 function renderArcSvg(el, arcKind, slot) {
@@ -605,7 +466,7 @@ function renderArcSvg(el, arcKind, slot) {
   textEl.setAttribute("font-family", fontFamilyCss(slot.font));
   textEl.setAttribute(
     "font-size",
-    String(Math.round(Math.max(14, Math.min(42, w * 0.12))))
+    String(Math.round(w * (slot.fontSize / 100) * (100 / 12)))
   );
   textEl.setAttribute("font-weight", "700");
   textEl.setAttribute("letter-spacing", "2");
@@ -640,13 +501,12 @@ function renderDivPatch(el, geomShape, slot) {
   const h = getPatchHeightPx(geomShape, slot);
 
   el.style.fontFamily = fontFamilyCss(slot.font);
+  el.style.fontSize = `${Math.round(w * (slot.fontSize / 100) * (100 / 12))}px`;
   el.style.color = slot.textColor;
   el.style.backgroundColor = slot.bgColor;
   el.style.borderColor = slot.borderColor;
   el.style.border = "";
-
   el.style.width = `${w}px`;
-
   el.style.borderRadius = "";
   el.style.clipPath = "";
   el.style.height = `${h}px`;
@@ -747,6 +607,12 @@ sizeRange.addEventListener("input", (e) => {
   const idx = Number(e.target.value);
   getActiveSlot().widthCm = WIDTH_CM[idx] ?? 30;
   updateSizeReadout();
+  renderPatch();
+});
+
+fontSizeRange.addEventListener("input", (e) => {
+  getActiveSlot().fontSize = Number(e.target.value);
+  updateFontSizeReadout();
   renderPatch();
 });
 
