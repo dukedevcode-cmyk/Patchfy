@@ -6,9 +6,9 @@ const dualSlotButtons = dualPatchTarget.querySelectorAll(".segmented__btn");
 
 const shapeSelect = document.getElementById("shape-select");
 const textInput = document.getElementById("text-input");
-const textColorSelect = document.getElementById("text-color-select");
-const bgColorSelect = document.getElementById("bg-color-select");
-const borderColorSelect = document.getElementById("border-color-select");
+const textColorSwatches = document.getElementById("text-color-swatches");
+const bgColorSwatches = document.getElementById("bg-color-swatches");
+const borderColorSwatches = document.getElementById("border-color-swatches");
 const sizeRange = document.getElementById("size-range");
 const sizeReadout = document.getElementById("size-readout");
 
@@ -262,40 +262,40 @@ for (const f of FONT_OPTIONS) {
 }
 
 const PALETTE_EMBROIDERY = [
-  { label: "White", value: "#FFFFFF" },
-  { label: "Cream", value: "#F5F0E6" },
-  { label: "Black", value: "#121212" },
-  { label: "Navy", value: "#1E3A5F" },
-  { label: "Red", value: "#C41E3A" },
-  { label: "Royal blue", value: "#2563EB" },
-  { label: "Gold", value: "#C5A572" },
-  { label: "Silver gray", value: "#9CA3AF" },
-  { label: "Forest green", value: "#14532D" },
-  { label: "Burgundy", value: "#7F1D1D" }
+  { label: "Branco", value: "#FFFFFF" },
+  { label: "Creme", value: "#F5F0E6" },
+  { label: "Preto", value: "#121212" },
+  { label: "Marinho", value: "#1E3A5F" },
+  { label: "Vermelho", value: "#C41E3A" },
+  { label: "Azul royal", value: "#2563EB" },
+  { label: "Dourado", value: "#C5A572" },
+  { label: "Cinza prata", value: "#9CA3AF" },
+  { label: "Verde floresta", value: "#14532D" },
+  { label: "Bordô", value: "#7F1D1D" }
 ];
 
 const PALETTE_BACKGROUND = [
-  { label: "Black", value: "#121212" },
-  { label: "White", value: "#FFFFFF" },
-  { label: "Navy", value: "#1E3A5F" },
-  { label: "Royal blue", value: "#1D4ED8" },
-  { label: "Red", value: "#B91C1C" },
-  { label: "Forest green", value: "#14532D" },
-  { label: "Gray", value: "#6B7280" },
-  { label: "Khaki", value: "#C3B091" },
-  { label: "Cream", value: "#F5F0E6" },
-  { label: "Maroon", value: "#7F1D1D" }
+  { label: "Preto", value: "#121212" },
+  { label: "Branco", value: "#FFFFFF" },
+  { label: "Marinho", value: "#1E3A5F" },
+  { label: "Azul royal", value: "#1D4ED8" },
+  { label: "Vermelho", value: "#B91C1C" },
+  { label: "Verde floresta", value: "#14532D" },
+  { label: "Cinza", value: "#6B7280" },
+  { label: "Cáqui", value: "#C3B091" },
+  { label: "Creme", value: "#F5F0E6" },
+  { label: "Bordô", value: "#7F1D1D" }
 ];
 
 const PALETTE_BORDER = [
-  { label: "White", value: "#FFFFFF" },
-  { label: "Black", value: "#121212" },
-  { label: "Navy", value: "#1E3A5F" },
-  { label: "Gold", value: "#C5A572" },
-  { label: "Silver", value: "#D1D5DB" },
-  { label: "Red", value: "#C41E3A" },
-  { label: "Royal blue", value: "#2563EB" },
-  { label: "Forest green", value: "#166534" }
+  { label: "Branco", value: "#FFFFFF" },
+  { label: "Preto", value: "#121212" },
+  { label: "Marinho", value: "#1E3A5F" },
+  { label: "Dourado", value: "#C5A572" },
+  { label: "Prata", value: "#D1D5DB" },
+  { label: "Vermelho", value: "#C41E3A" },
+  { label: "Azul royal", value: "#2563EB" },
+  { label: "Verde floresta", value: "#166534" }
 ];
 
 const ARC_CURVE_INSET = 0.28;
@@ -303,7 +303,7 @@ const ARC_BUMP = 0.14;
 
 function defaultSlot() {
   return {
-    text: "Your Name",
+    text: "Seu Nome",
     font: "Georgia",
     textColor: "#FFFFFF",
     bgColor: "#121212",
@@ -316,7 +316,7 @@ const state = {
   shape: "rounded",
   dualActiveSlot: 0,
   quantity: 1,
-  slots: [defaultSlot(), { ...defaultSlot(), text: "Your Text" }]
+  slots: [defaultSlot(), { ...defaultSlot(), text: "Seu Texto" }]
 };
 
 function isDualMode() {
@@ -411,6 +411,41 @@ function fillSelect(select, items, selectedValue) {
     select.value = selectedValue;
   } else {
     select.value = items[0].value;
+  }
+}
+
+function hexLuminance(hex) {
+  const r = parseInt(hex.slice(1, 3), 16) / 255;
+  const g = parseInt(hex.slice(3, 5), 16) / 255;
+  const b = parseInt(hex.slice(5, 7), 16) / 255;
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+function buildSwatches(container, palette, currentValue, onChange) {
+  container.replaceChildren();
+  for (const { label, value } of palette) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "color-swatch";
+    btn.setAttribute("role", "radio");
+    btn.setAttribute("aria-label", label);
+    btn.setAttribute("aria-checked", value === currentValue ? "true" : "false");
+    btn.title = label;
+    btn.dataset.value = value;
+    btn.style.setProperty("--swatch-color", value);
+    if (value === currentValue) btn.classList.add("is-selected");
+    if (hexLuminance(value) > 0.85) btn.classList.add("color-swatch--light");
+
+    btn.addEventListener("click", () => {
+      container.querySelectorAll(".color-swatch").forEach((s) => {
+        s.classList.remove("is-selected");
+        s.setAttribute("aria-checked", "false");
+      });
+      btn.classList.add("is-selected");
+      btn.setAttribute("aria-checked", "true");
+      onChange(value);
+    });
+    container.appendChild(btn);
   }
 }
 
@@ -511,12 +546,18 @@ function syncControlsFromActiveSlot() {
   const slot = getActiveSlot();
   textInput.value = slot.text;
   syncFontPickerFromSlot();
-  fillSelect(textColorSelect, PALETTE_EMBROIDERY, slot.textColor);
-  fillSelect(bgColorSelect, PALETTE_BACKGROUND, slot.bgColor);
-  fillSelect(borderColorSelect, PALETTE_BORDER, slot.borderColor);
-  slot.textColor = textColorSelect.value;
-  slot.bgColor = bgColorSelect.value;
-  slot.borderColor = borderColorSelect.value;
+  buildSwatches(textColorSwatches, PALETTE_EMBROIDERY, slot.textColor, (val) => {
+    getActiveSlot().textColor = val;
+    renderPatch();
+  });
+  buildSwatches(bgColorSwatches, PALETTE_BACKGROUND, slot.bgColor, (val) => {
+    getActiveSlot().bgColor = val;
+    renderPatch();
+  });
+  buildSwatches(borderColorSwatches, PALETTE_BORDER, slot.borderColor, (val) => {
+    getActiveSlot().borderColor = val;
+    renderPatch();
+  });
   syncSizeSlider();
   updateSizeReadout();
 }
@@ -702,21 +743,6 @@ textInput.addEventListener("input", (e) => {
   renderPatch();
 });
 
-textColorSelect.addEventListener("change", (e) => {
-  getActiveSlot().textColor = e.target.value;
-  renderPatch();
-});
-
-bgColorSelect.addEventListener("change", (e) => {
-  getActiveSlot().bgColor = e.target.value;
-  renderPatch();
-});
-
-borderColorSelect.addEventListener("change", (e) => {
-  getActiveSlot().borderColor = e.target.value;
-  renderPatch();
-});
-
 sizeRange.addEventListener("input", (e) => {
   const idx = Number(e.target.value);
   getActiveSlot().widthCm = WIDTH_CM[idx] ?? 30;
@@ -728,13 +754,7 @@ quantitySelect.addEventListener("change", (e) => {
   state.quantity = Number(e.target.value) || 1;
 });
 
-addToCartBtn.addEventListener("click", () => {
-  const payload = buildCartPayload();
-  console.info("add-to-cart", payload);
-  showToast(
-    `Added ${state.quantity}× custom patch to cart (see console for details).`
-  );
-});
+// Cart click handler registered after cart init below
 
 fontPickerTrigger.addEventListener("click", (e) => {
   e.stopPropagation();
@@ -779,15 +799,213 @@ function populateQuantity() {
 populateQuantity();
 buildFontPickerList();
 
-fillSelect(textColorSelect, PALETTE_EMBROIDERY, getActiveSlot().textColor);
-fillSelect(bgColorSelect, PALETTE_BACKGROUND, getActiveSlot().bgColor);
-fillSelect(borderColorSelect, PALETTE_BORDER, getActiveSlot().borderColor);
-
-getActiveSlot().textColor = textColorSelect.value;
-getActiveSlot().bgColor = bgColorSelect.value;
-getActiveSlot().borderColor = borderColorSelect.value;
-
 shapeSelect.value = state.shape;
 setDualUiVisible(false);
 syncControlsFromActiveSlot();
 renderPatch();
+
+/* ── Theme toggle ────────────────────────────────── */
+
+const themeToggle = document.getElementById("theme-toggle");
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("patchfy-theme", theme);
+}
+
+const savedTheme = localStorage.getItem("patchfy-theme")
+  || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+applyTheme(savedTheme);
+
+themeToggle.addEventListener("click", () => {
+  const current = document.documentElement.getAttribute("data-theme");
+  applyTheme(current === "dark" ? "light" : "dark");
+});
+
+/* ── Cart ────────────────────────────────────────── */
+
+const SHAPE_LABELS = {
+  rounded: "Retangular",
+  circle: "Circular",
+  "top-arc": "Arco sup.",
+  "bottom-arc": "Arco inf.",
+  rocker: "Rocker",
+  dual: "Sup. + inf."
+};
+
+const cartOverlay = document.getElementById("cart-overlay");
+const cartDrawer = document.getElementById("cart-drawer");
+const cartCloseBtn = document.getElementById("cart-close");
+const cartToggleBtn = document.getElementById("cart-toggle");
+const cartBadge = document.getElementById("cart-badge");
+const cartBody = document.getElementById("cart-body");
+const cartItemsList = document.getElementById("cart-items");
+const cartEmpty = document.getElementById("cart-empty");
+const cartFooter = document.getElementById("cart-footer");
+const cartTotalItems = document.getElementById("cart-total-items");
+const btnCheckout = document.getElementById("btn-checkout");
+const btnClearCart = document.getElementById("btn-clear-cart");
+
+let cart = [];
+
+function loadCart() {
+  try {
+    const raw = localStorage.getItem("patchfy-cart");
+    cart = raw ? JSON.parse(raw) : [];
+  } catch {
+    cart = [];
+  }
+}
+
+function saveCart() {
+  localStorage.setItem("patchfy-cart", JSON.stringify(cart));
+}
+
+function cartTotalQty() {
+  return cart.reduce((sum, item) => sum + item.quantity, 0);
+}
+
+function updateCartBadge() {
+  const total = cartTotalQty();
+  if (total > 0) {
+    cartBadge.textContent = String(total);
+    cartBadge.hidden = false;
+  } else {
+    cartBadge.hidden = true;
+  }
+}
+
+function openCart() {
+  cartOverlay.hidden = false;
+  cartDrawer.hidden = false;
+  requestAnimationFrame(() => {
+    cartOverlay.classList.add("is-open");
+    cartDrawer.classList.add("is-open");
+  });
+  document.body.style.overflow = "hidden";
+}
+
+function closeCart() {
+  cartOverlay.classList.remove("is-open");
+  cartDrawer.classList.remove("is-open");
+  document.body.style.overflow = "";
+  setTimeout(() => {
+    cartOverlay.hidden = true;
+    cartDrawer.hidden = true;
+  }, 300);
+}
+
+function findColorLabel(palette, value) {
+  const match = palette.find((c) => c.value === value);
+  return match ? match.label : value;
+}
+
+function renderCartItems() {
+  cartItemsList.replaceChildren();
+  const hasItems = cart.length > 0;
+  cartEmpty.hidden = hasItems;
+  cartFooter.hidden = !hasItems;
+
+  if (!hasItems) return;
+
+  let totalQty = 0;
+
+  cart.forEach((item, index) => {
+    totalQty += item.quantity;
+    const li = document.createElement("li");
+    li.className = "cart-item";
+
+    const mainPatch = item.patches[0];
+
+    // Mini preview
+    const preview = document.createElement("div");
+    preview.className = "cart-item__preview";
+    preview.style.background = mainPatch.backgroundColor;
+    preview.style.color = mainPatch.textColor;
+    preview.style.border = `3px solid ${mainPatch.borderColor}`;
+    preview.style.fontFamily = fontFamilyCss(mainPatch.font);
+    preview.textContent = mainPatch.text.length > 8
+      ? mainPatch.text.slice(0, 8) + "\u2026"
+      : mainPatch.text;
+
+    // Info
+    const info = document.createElement("div");
+    info.className = "cart-item__info";
+
+    const textEl = document.createElement("span");
+    textEl.className = "cart-item__text";
+    textEl.textContent = item.mode === "dual"
+      ? `${item.patches[0].text} / ${item.patches[1].text}`
+      : mainPatch.text;
+
+    const meta = document.createElement("span");
+    meta.className = "cart-item__meta";
+    meta.textContent = `${SHAPE_LABELS[item.shape] || item.shape} \u00B7 ${mainPatch.widthCm} cm \u00B7 ${mainPatch.font}`;
+
+    const qty = document.createElement("span");
+    qty.className = "cart-item__qty";
+    qty.textContent = `${item.quantity}\u00D7`;
+
+    info.appendChild(textEl);
+    info.appendChild(meta);
+    info.appendChild(qty);
+
+    // Remove button
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.className = "cart-item__remove";
+    removeBtn.setAttribute("aria-label", "Remover item");
+    removeBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    removeBtn.addEventListener("click", () => {
+      cart.splice(index, 1);
+      saveCart();
+      updateCartBadge();
+      renderCartItems();
+    });
+
+    li.appendChild(preview);
+    li.appendChild(info);
+    li.appendChild(removeBtn);
+    cartItemsList.appendChild(li);
+  });
+
+  cartTotalItems.textContent = `${totalQty} ${totalQty === 1 ? "patch" : "patches"}`;
+}
+
+addToCartBtn.addEventListener("click", () => {
+  const payload = buildCartPayload();
+  cart.push(payload);
+  saveCart();
+  updateCartBadge();
+  renderCartItems();
+  showToast(`${state.quantity}\u00D7 patch adicionado ao carrinho.`);
+});
+
+cartToggleBtn.addEventListener("click", () => {
+  renderCartItems();
+  openCart();
+});
+
+cartCloseBtn.addEventListener("click", closeCart);
+cartOverlay.addEventListener("click", closeCart);
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !cartDrawer.hidden) {
+    closeCart();
+  }
+});
+
+btnClearCart.addEventListener("click", () => {
+  cart = [];
+  saveCart();
+  updateCartBadge();
+  renderCartItems();
+});
+
+btnCheckout.addEventListener("click", () => {
+  showToast("Funcionalidade de checkout em breve!");
+});
+
+// Init cart from localStorage
+loadCart();
+updateCartBadge();

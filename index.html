@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Patch For You customizer</title>
+  <title>Patchfy — Personalize seu patch</title>
 
   <link rel="stylesheet" href="style.css">
   <!-- UI + web preview fallbacks (SIL OFL). Wilcom TTFs use local() when installed. -->
@@ -50,13 +50,39 @@
 
   <div class="page">
     <header class="site-header">
-      <h1 class="site-title">Patch For You customizer</h1>
+      <div class="site-header__brand">
+        <span class="site-header__logo" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect x="3" y="3" width="26" height="26" rx="6" stroke="currentColor" stroke-width="2.4" stroke-dasharray="4.5 3"/>
+            <path d="M10 16l4 4 8-8" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div class="site-header__text">
+          <h1 class="site-title">Patchfy</h1>
+          <span class="site-header__subtitle">Personalize seu patch bordado</span>
+        </div>
+        <div class="site-header__actions">
+        <button type="button" class="cart-toggle" id="cart-toggle" aria-label="Abrir carrinho">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </button>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Alternar modo escuro">
+          <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        </div>
+      </div>
     </header>
 
     <p class="intro">
-      Use the tools below to customize your patch.
-      Feel free to customize it however you like.
-      We'll take care of the rest 😉
+      Monte seu patch personalizado escolhendo formato, cores e tipografia.
+      Nós cuidamos do resto.
     </p>
 
     <main class="main-card">
@@ -65,44 +91,44 @@
           <div class="preview-column-inner">
             <div class="preview-frame">
               <div id="preview-stack" class="preview-stack">
-                <div id="patch-preview-top" class="patch-preview">Your Name</div>
-                <div id="patch-preview-bottom" class="patch-preview patch-preview--dual" aria-hidden="true">Your Name</div>
+                <div id="patch-preview-top" class="patch-preview">Seu Nome</div>
+                <div id="patch-preview-bottom" class="patch-preview patch-preview--dual" aria-hidden="true">Seu Nome</div>
               </div>
             </div>
           </div>
         </div>
 
         <div class="controls">
-          <h2 class="controls-heading">Customize</h2>
+          <h2 class="controls-heading">Personalize</h2>
 
           <label class="field">
-            <span class="field-label">Shape</span>
+            <span class="field-label">Formato</span>
             <select id="shape-select" class="input-control">
-              <option value="rounded">Rectangle</option>
-              <option value="circle">Circle</option>
-              <option value="top-arc">Top arch</option>
-              <option value="bottom-arc">Bottom arch</option>
+              <option value="rounded">Retangular</option>
+              <option value="circle">Circular</option>
+              <option value="top-arc">Arco superior</option>
+              <option value="bottom-arc">Arco inferior</option>
               <option value="rocker">Rocker</option>
-              <option value="dual">Top + bottom</option>
+              <option value="dual">Superior + inferior</option>
             </select>
           </label>
 
           <div id="dual-patch-target" class="dual-target" hidden>
-            <span class="field-label">Editing</span>
-            <div class="segmented" role="radiogroup" aria-label="Which patch to edit">
-              <button type="button" class="segmented__btn is-active" data-slot="0" aria-pressed="true">Upper patch</button>
-              <button type="button" class="segmented__btn" data-slot="1" aria-pressed="false">Lower patch</button>
+            <span class="field-label">Editando</span>
+            <div class="segmented" role="radiogroup" aria-label="Qual patch editar">
+              <button type="button" class="segmented__btn is-active" data-slot="0" aria-pressed="true">Patch superior</button>
+              <button type="button" class="segmented__btn" data-slot="1" aria-pressed="false">Patch inferior</button>
             </div>
-            <p class="field-note">Upper uses top arch, lower uses bottom arch. Each has its own text, colors, and size.</p>
+            <p class="field-note">O superior usa arco de cima, o inferior usa arco de baixo. Cada um tem texto, cores e tamanho independentes.</p>
           </div>
 
           <label class="field">
-            <span class="field-label">Text</span>
-            <input type="text" id="text-input" class="input-control" value="Your Name" maxlength="40">
+            <span class="field-label">Texto</span>
+            <input type="text" id="text-input" class="input-control" value="Seu Nome" maxlength="40" placeholder="Digite seu texto">
           </label>
 
           <div class="field font-field">
-            <span class="field-label">Font</span>
+            <span class="field-label">Fonte</span>
             <div class="font-picker" id="font-picker">
               <button type="button" class="font-picker__trigger input-control" id="font-picker-trigger" aria-haspopup="listbox" aria-expanded="false">
                 <span class="font-picker__trigger-row">
@@ -113,47 +139,72 @@
               </button>
               <ul class="font-picker__list" id="font-picker-list" role="listbox" tabindex="-1" hidden></ul>
             </div>
-            <p class="field-note">Preview uses your installed Wilcom/system fonts when available (<code>local()</code>); otherwise it loads a similar open font from Google Fonts for the same look in the browser.</p>
+            <p class="field-note">O preview usa fontes Wilcom/sistema quando instaladas; caso contrário, carrega uma fonte similar do Google Fonts.</p>
           </div>
 
-          <label class="field">
-            <span class="field-label">Embroidery color</span>
-            <select id="text-color-select" class="input-control"></select>
-          </label>
+          <div class="field">
+            <span class="field-label">Cor do bordado</span>
+            <div class="color-swatches" id="text-color-swatches" role="radiogroup" aria-label="Cor do bordado"></div>
+          </div>
 
-          <label class="field">
-            <span class="field-label">Background color</span>
-            <select id="bg-color-select" class="input-control"></select>
-          </label>
+          <div class="field">
+            <span class="field-label">Cor de fundo</span>
+            <div class="color-swatches" id="bg-color-swatches" role="radiogroup" aria-label="Cor de fundo"></div>
+          </div>
 
-          <label class="field">
-            <span class="field-label">Border color</span>
-            <select id="border-color-select" class="input-control"></select>
-          </label>
+          <div class="field">
+            <span class="field-label">Cor da borda</span>
+            <div class="color-swatches" id="border-color-swatches" role="radiogroup" aria-label="Cor da borda"></div>
+          </div>
 
           <div class="field">
             <div class="field-label-row">
-              <span class="field-label">Width</span>
+              <span class="field-label">Largura</span>
               <span id="size-readout" class="field-hint" aria-live="polite">30 cm</span>
             </div>
             <input type="range" id="size-range" class="input-range" min="0" max="5" value="2" step="1">
             <div class="range-ticks" aria-hidden="true">
               <span>25</span><span>28</span><span>30</span><span>33</span><span>36</span><span>40</span>
             </div>
-            <p class="field-note">Height scales proportionally with width.</p>
+            <p class="field-note">A altura acompanha proporcionalmente a largura.</p>
           </div>
 
           <label class="field">
-            <span class="field-label">Quantity</span>
-            <select id="quantity-select" class="input-control" aria-label="Quantity">
+            <span class="field-label">Quantidade</span>
+            <select id="quantity-select" class="input-control" aria-label="Quantidade">
             </select>
           </label>
 
-          <button type="button" class="btn-cart" id="add-to-cart">Add to cart</button>
+          <button type="button" class="btn-cart" id="add-to-cart">Adicionar ao carrinho</button>
         </div>
       </div>
     </main>
   </div>
+
+  <!-- Cart drawer -->
+  <div class="cart-overlay" id="cart-overlay" hidden></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Carrinho" hidden>
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Carrinho</h2>
+      <button type="button" class="cart-drawer__close" id="cart-close" aria-label="Fechar carrinho">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="cart-drawer__body" id="cart-body">
+      <p class="cart-empty" id="cart-empty">Seu carrinho esta vazio.</p>
+      <ul class="cart-items" id="cart-items"></ul>
+    </div>
+    <div class="cart-drawer__footer" id="cart-footer" hidden>
+      <div class="cart-summary">
+        <span class="cart-summary__label">Total de itens</span>
+        <span class="cart-summary__value" id="cart-total-items">0</span>
+      </div>
+      <button type="button" class="btn-cart btn-checkout" id="btn-checkout">Finalizar pedido</button>
+      <button type="button" class="btn-clear-cart" id="btn-clear-cart">Limpar carrinho</button>
+    </div>
+  </aside>
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
