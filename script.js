@@ -184,6 +184,13 @@ function getTextWidthPx(slot) {
   return Math.round((slot.textWidthCm / REFERENCE_CM) * PREVIEW_W_AT_REF);
 }
 
+function getPreviewContainerWidth() {
+  const stack = document.getElementById("preview-stack");
+  if (!stack) return PREVIEW_W_AT_REF;
+  const w = stack.clientWidth;
+  return w > 0 ? w : PREVIEW_W_AT_REF;
+}
+
 // Safe maximum text width — conservatively 80% of patch width so text never
 // bleeds past the border on any shape (div or SVG arc).
 function getMaxTextWidthCm(widthCm) {
@@ -240,11 +247,8 @@ const shapes = {
     el.style.borderRadius = "18px";
     el.style.clipPath = "";
   },
-  circle: (el, slot) => {
-    const w = getPatchWidthPx(slot);
+  circle: (el) => {
     el.style.borderRadius = "999px";
-    el.style.width = `${w}px`;
-    el.style.height = `${w}px`;
     el.style.clipPath = "";
   },
   rocker: (el) => {
@@ -444,8 +448,11 @@ function syncControlsFromActiveSlot() {
 }
 
 function renderArcSvg(el, arcKind, slot) {
-  const w = getPatchWidthPx(slot);
-  const h = getPatchHeightPx(arcKind, slot);
+  const rawW = getPatchWidthPx(slot);
+  const availW = getPreviewContainerWidth();
+  const scale = (rawW > availW && availW > 0) ? availW / rawW : 1;
+  const w = Math.round(rawW * scale);
+  const h = Math.round(w * (140 / PREVIEW_W_AT_REF));
   // "top-arc" → visually arches upward (bottom rocker outline, text follows top edge)
   // "bottom-arc" → visually arches downward (top rocker outline, text follows bottom edge)
   const outlineD =
@@ -497,7 +504,7 @@ function renderArcSvg(el, arcKind, slot) {
   tp.setAttribute("startOffset", "50%");
   tp.setAttribute("text-anchor", "middle");
   // Hard cap: text path goes from 7% to 93% of w (~86%), keep 80% as safe limit
-  const arcTextPx = Math.min(getTextWidthPx(slot), Math.round(w * 0.80));
+  const arcTextPx = Math.min(Math.round(getTextWidthPx(slot) * scale), Math.round(w * 0.80));
   tp.setAttribute("textLength", String(arcTextPx));
   tp.setAttribute("lengthAdjust", "spacingAndGlyphs");
   tp.textContent = slot.text;
@@ -519,12 +526,15 @@ function renderDivPatch(el, geomShape, slot) {
   el.classList.remove("patch-preview--arc");
   el.replaceChildren();
 
-  const w = getPatchWidthPx(slot);
-  const h = getPatchHeightPx(geomShape, slot);
+  const rawW = getPatchWidthPx(slot);
+  const availW = getPreviewContainerWidth();
+  const scale = (rawW > availW && availW > 0) ? availW / rawW : 1;
+  const w = Math.round(rawW * scale);
+  const h = geomShape === "circle" ? w : Math.round(w * (140 / PREVIEW_W_AT_REF));
   const baseFontSize = Math.round(h * 0.45);
   // Hard cap: text must stay inside inner area (border 8px × 2 + breathing 8px × 2)
   const safeMaxPx = w - 32;
-  const targetTextPx = Math.min(getTextWidthPx(slot), safeMaxPx);
+  const targetTextPx = Math.min(Math.round(getTextWidthPx(slot) * scale), safeMaxPx);
   const fontStack = fontFamilyCss(slot.font);
   const naturalWidth = measureTextWidthPx(slot.text, fontStack, baseFontSize);
   const scaleX = naturalWidth > 0 ? targetTextPx / naturalWidth : 1;
