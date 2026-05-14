@@ -544,8 +544,8 @@ function renderDivPatch(el, geomShape, slot) {
   el.style.overflow = "hidden";
   el.style.color = slot.textColor;
   el.style.backgroundColor = slot.bgColor;
-  el.style.borderColor = slot.borderColor;
   el.style.border = "";
+  el.style.borderColor = slot.borderColor;
   el.style.width = `${w}px`;
   el.style.borderRadius = "";
   el.style.clipPath = "";
