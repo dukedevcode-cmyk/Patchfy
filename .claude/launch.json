@@ -4,8 +4,8 @@
     {
       "name": "Patchfy Dev Server",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "C:\\Users\\melan\\Patchfy", "--listen", "3000", "--no-clipboard"],
-      "port": 3000
+      "runtimeArgs": ["serve", "C:\\Users\\melan\\Patchfy", "--no-clipboard"],
+      "autoPort": true
     }
   ]
 }

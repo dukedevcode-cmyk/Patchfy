@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patchfy — Personalize seu patch</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Pirata+One&family=Parisienne&family=Nunito:wght@400;700;800&family=Josefin+Sans:wght@400;600;700&family=Bebas+Neue&family=Ultra&family=Teko:wght@400;600;700&family=Oswald:wght@400;600;700&family=UnifrakturMaguntia&family=Righteous&family=Jersey+10&family=Boogaloo&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Metal+Mania&family=UnifrakturCook&family=Poiret+One&family=Cinzel+Decorative&family=Special+Elite&family=Rock+Salt&family=Arvo:wght@400;700&family=Rye&family=Orbitron:wght@400;700&family=Dancing+Script:wght@400;700&family=Pacifico&family=Stardos+Stencil:wght@400;700&family=Cinzel:wght@400;700&family=Germania+One&display=swap" rel="stylesheet">
+
+  <style>
+  /* ═══════════════════════════════════════════════════
+     WIZARD 2.0 — navegação por etapas
+  ═══════════════════════════════════════════════════ */
+
+  /* Ocultar readout de cm da largura do texto */
+  #font-size-readout { display: none !important; }
+
+  /* ── Coluna do wizard ────────────────────────────── */
+  .wizard {
+    flex: 0 1 340px;
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* ── Barra de progresso ──────────────────────────── */
+  .wizard__progress {
+    display: flex;
+    align-items: center;
+    margin-bottom: 22px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+  .wizard__progress::-webkit-scrollbar { display: none; }
+
+  .wz-dot {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid var(--border-strong);
+    background: var(--bg-elevated);
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 700;
+    font-family: var(--font-sans);
+    cursor: default;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.2s, border-color 0.2s, color 0.2s, opacity 0.2s, box-shadow 0.2s;
+  }
+  .wz-dot[data-nav="true"] { cursor: pointer; }
+  .wz-dot[data-nav="true"]:hover { border-color: var(--accent); color: var(--accent); }
+
+  .wz-dot.is-done {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    opacity: 0.5;
+  }
+  .wz-dot.is-done[data-nav="true"] { cursor: pointer; }
+  .wz-dot.is-done[data-nav="true"]:hover { opacity: 0.8; }
+
+  .wz-dot.is-active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    opacity: 1;
+    box-shadow: 0 0 0 3px var(--accent-soft);
+    cursor: default;
+  }
+
+  .wz-dot--review { font-size: 14px; }
+
+  .wz-line {
+    flex: 1;
+    min-width: 6px;
+    height: 2px;
+    background: var(--border-strong);
+    transition: background 0.25s;
+  }
+  .wz-line.is-done { background: var(--accent); opacity: 0.5; }
+
+  /* ── Dual switcher (visibilidade controlada por script.js) ── */
+  #dual-patch-target {
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    background: var(--bg-page);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+  }
+  #dual-patch-target .field-note {
+    margin-top: 8px;
+    font-size: 0.7rem;
+  }
+
+  /* ── Painéis de passo ────────────────────────────── */
+  .wizard__panels { display: flex; flex-direction: column; }
+
+  .wz-panel {
+    display: none;
+    flex-direction: column;
+    gap: 14px;
+    animation: wzIn 0.2s ease both;
+  }
+  .wz-panel.is-active { display: flex; }
+
+  @keyframes wzIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .wz-step-meta {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: -6px;
+  }
+
+  .wz-panel__title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin: 0;
+    line-height: 1.15;
+  }
+
+  /* ── Modo revisão: todos os painéis visíveis ─────── */
+  .wizard--review .wz-panel {
+    display: flex !important;
+    animation: none;
+    gap: 10px;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 16px;
+    margin-top: 2px;
+  }
+  .wizard--review .wz-panel:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .wizard--review .wz-step-meta { display: none; }
+
+  .wizard--review .wz-panel__title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* ── Cabeçalho da revisão ────────────────────────── */
+  .wizard__review-header {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--accent);
+  }
+  .wizard--review .wizard__review-header { display: flex; }
+
+  .wizard__review-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .wz-btn-step-by-step {
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: none;
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .wz-btn-step-by-step:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── Ações (qty + carrinho) — só na revisão ─────── */
+  .wizard__actions {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 20px;
+    margin-top: 6px;
+  }
+  .wizard--review .wizard__actions { display: flex; }
+
+  /* ── Navegação Anterior / Próximo ────────────────── */
+  .wizard__nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .wizard--review .wizard__nav { display: none; }
+
+  .wz-btn-prev,
+  .wz-btn-next {
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 11px 22px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: filter 0.15s, box-shadow 0.15s, border-color 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+
+  .wz-btn-prev {
+    background: transparent;
+    border: 1.5px solid var(--border-strong);
+    color: var(--text-muted);
+  }
+  .wz-btn-prev:hover { border-color: var(--accent); color: var(--accent); }
+
+  .wz-btn-next {
+    margin-left: auto;
+    background: var(--accent);
+    border: 1.5px solid var(--accent);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 128, 96, 0.28);
+  }
+  .wz-btn-next:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 4px 14px rgba(0, 128, 96, 0.38);
+  }
+
+  /* ── Progress oculto na revisão ──────────────────── */
+  .wizard--review .wizard__progress { display: none; }
+
+  /* ── Mobile ──────────────────────────────────────── */
+  @media (max-width: 720px) {
+    .wizard { max-width: none; flex: 1 1 auto; }
+
+    .preview-frame {
+      min-height: 180px;
+      max-height: 260px;
+      padding: 16px 12px;
+    }
+
+    .wz-dot { width: 22px; height: 22px; font-size: 9px; }
+    .wz-dot--review { font-size: 12px; }
+
+    .wz-panel__title { font-size: 1.2rem; }
+  }
+
+  @media (max-width: 440px) {
+    .wz-btn-prev, .wz-btn-next { padding: 11px 16px; font-size: 0.8125rem; }
+  }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+    <header class="site-header">
+      <div class="site-header__brand">
+        <span class="site-header__logo" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect x="3" y="3" width="26" height="26" rx="6" stroke="currentColor" stroke-width="2.4" stroke-dasharray="4.5 3"/>
+            <path d="M10 16l4 4 8-8" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div class="site-header__text">
+          <h1 class="site-title">Patchfy</h1>
+          <span class="site-header__subtitle">Personalize seu patch bordado</span>
+        </div>
+        <div class="site-header__actions">
+          <button type="button" class="cart-toggle" id="cart-toggle" aria-label="Abrir carrinho">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            <span class="cart-badge" id="cart-badge" hidden>0</span>
+          </button>
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Alternar modo escuro">
+            <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+            <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <p class="intro">
+      Monte seu patch personalizado escolhendo formato, cores e tipografia.
+      Nós cuidamos do resto.
+    </p>
+
+    <main class="main-card">
+      <div class="layout">
+
+        <!-- ── Preview ────────────────────────────────── -->
+        <div class="preview-column">
+          <div class="preview-column-inner">
+            <div class="preview-frame">
+              <div id="preview-stack" class="preview-stack">
+                <div id="patch-preview-top" class="patch-preview">Seu Nome</div>
+                <div id="patch-preview-bottom" class="patch-preview patch-preview--dual" aria-hidden="true">Seu Nome</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Wizard ──────────────────────────────────── -->
+        <div class="wizard" id="wizard">
+
+          <!-- Barra de progresso (gerada por JS) -->
+          <div class="wizard__progress" id="wz-progress" role="list" aria-label="Etapas"></div>
+
+          <!-- Dual slot switcher — controlado por script.js via hidden/display -->
+          <div id="dual-patch-target" class="dual-target" hidden>
+            <span class="field-label">Editando</span>
+            <div class="segmented" role="radiogroup" aria-label="Qual patch editar">
+              <button type="button" class="segmented__btn is-active" data-slot="0" aria-pressed="true">Patch superior</button>
+              <button type="button" class="segmented__btn" data-slot="1" aria-pressed="false">Patch inferior</button>
+            </div>
+            <p class="field-note">O superior usa arco de cima, o inferior usa arco de baixo. Cada um tem texto, cores e tamanho independentes.</p>
+          </div>
+
+          <!-- Cabeçalho da revisão (oculto em modo passo) -->
+          <div class="wizard__review-header">
+            <span class="wizard__review-label">Revisão</span>
+            <button type="button" class="wz-btn-step-by-step" id="wz-btn-back">
+              Editar passo a passo
+            </button>
+          </div>
+
+          <!-- ── Painéis ──────────────────────────────── -->
+          <div class="wizard__panels" id="wz-panels">
+
+            <!-- 1 · Formato -->
+            <section class="wz-panel" data-step="1">
+              <span class="wz-step-meta">Passo 1 de 8</span>
+              <h2 class="wz-panel__title">Formato</h2>
+              <label class="field">
+                <select id="shape-select" class="input-control">
+                  <option value="top-arc">Arco superior</option>
+                  <option value="bottom-arc">Arco inferior</option>
+                  <option value="dual">Superior + inferior</option>
+                </select>
+              </label>
+            </section>
+
+            <!-- 2 · Texto -->
+            <section class="wz-panel" data-step="2">
+              <span class="wz-step-meta">Passo 2 de 8</span>
+              <h2 class="wz-panel__title">Texto</h2>
+              <label class="field">
+                <input type="text" id="text-input" class="input-control"
+                  value="Seu Nome" maxlength="40" placeholder="Digite seu texto">
+              </label>
+            </section>
+
+            <!-- 3 · Fonte -->
+            <section class="wz-panel" data-step="3">
+              <span class="wz-step-meta">Passo 3 de 8</span>
+              <h2 class="wz-panel__title">Fonte</h2>
+              <div class="field font-field">
+                <div class="font-picker" id="font-picker">
+                  <button type="button" class="font-picker__trigger input-control"
+                    id="font-picker-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="font-picker__trigger-row">
+                      <span class="font-picker__trigger-sample" id="font-picker-trigger-sample" aria-hidden="true">Aa Patch</span>
+                      <span class="font-picker__trigger-label" id="font-picker-trigger-label">Georgia</span>
+                    </span>
+                    <span class="font-picker__chevron" aria-hidden="true"></span>
+                  </button>
+                  <ul class="font-picker__list" id="font-picker-list" role="listbox" tabindex="-1" hidden></ul>
+                </div>
+              </div>
+            </section>
+
+            <!-- 4 · Cor do bordado -->
+            <section class="wz-panel" data-step="4">
+              <span class="wz-step-meta">Passo 4 de 8</span>
+              <h2 class="wz-panel__title">Cor do bordado</h2>
+              <div class="field">
+                <div class="color-swatches" id="text-color-swatches"
+                  role="radiogroup" aria-label="Cor do bordado"></div>
+              </div>
+            </section>
+
+            <!-- 5 · Cor de fundo -->
+            <section class="wz-panel" data-step="5">
+              <span class="wz-step-meta">Passo 5 de 8</span>
+              <h2 class="wz-panel__title">Cor de fundo</h2>
+              <div class="field">
+                <div class="color-swatches" id="bg-color-swatches"
+                  role="radiogroup" aria-label="Cor de fundo"></div>
+              </div>
+            </section>
+
+            <!-- 6 · Cor da borda -->
+            <section class="wz-panel" data-step="6">
+              <span class="wz-step-meta">Passo 6 de 8</span>
+              <h2 class="wz-panel__title">Cor da borda</h2>
+              <div class="field">
+                <div class="color-swatches" id="border-color-swatches"
+                  role="radiogroup" aria-label="Cor da borda"></div>
+              </div>
+            </section>
+
+            <!-- 7 · Largura -->
+            <section class="wz-panel" data-step="7">
+              <span class="wz-step-meta">Passo 7 de 8</span>
+              <h2 class="wz-panel__title">Largura</h2>
+              <div class="field">
+                <div class="field-label-row">
+                  <span class="field-label">Tamanho</span>
+                  <span id="size-readout" class="field-hint" aria-live="polite">30 cm</span>
+                </div>
+                <input type="range" id="size-range" class="input-range"
+                  min="0" max="5" value="2" step="1">
+                <div class="range-ticks" aria-hidden="true">
+                  <span>25</span><span>28</span><span>30</span>
+                  <span>33</span><span>36</span><span>40</span>
+                </div>
+                <p class="field-note">A altura acompanha proporcionalmente a largura.</p>
+              </div>
+            </section>
+
+            <!-- 8 · Largura do texto -->
+            <section class="wz-panel" data-step="8">
+              <span class="wz-step-meta">Passo 8 de 8</span>
+              <h2 class="wz-panel__title">Largura do texto</h2>
+              <div class="field">
+                <!-- font-size-readout oculto via CSS (#font-size-readout { display:none }) -->
+                <span id="font-size-readout" class="field-hint" aria-live="polite">15 cm</span>
+                <input type="range" id="font-size-range" class="input-range"
+                  min="15" max="28" value="15" step="0.5">
+              </div>
+            </section>
+
+          </div><!-- /.wizard__panels -->
+
+          <!-- Ações da revisão: quantidade + adicionar ao carrinho -->
+          <div class="wizard__actions">
+            <label class="field">
+              <span class="field-label">Quantidade</span>
+              <select id="quantity-select" class="input-control" aria-label="Quantidade"></select>
+            </label>
+            <button type="button" class="btn-cart" id="add-to-cart">Adicionar ao carrinho</button>
+          </div>
+
+          <!-- Navegação Anterior / Próximo -->
+          <div class="wizard__nav">
+            <button type="button" class="wz-btn-prev" id="wz-prev" hidden>Anterior</button>
+            <button type="button" class="wz-btn-next" id="wz-next">Próximo</button>
+          </div>
+
+        </div><!-- /.wizard -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Cart drawer -->
+  <div class="cart-overlay" id="cart-overlay" hidden></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Carrinho" hidden>
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Carrinho</h2>
+      <button type="button" class="cart-drawer__close" id="cart-close" aria-label="Fechar carrinho">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="cart-drawer__body" id="cart-body">
+      <p class="cart-empty" id="cart-empty">Seu carrinho está vazio.</p>
+      <ul class="cart-items" id="cart-items"></ul>
+    </div>
+    <div class="cart-drawer__footer" id="cart-footer" hidden>
+      <div class="cart-summary">
+        <span class="cart-summary__label">Total de itens</span>
+        <span class="cart-summary__value" id="cart-total-items">0</span>
+      </div>
+      <button type="button" class="btn-cart btn-checkout" id="btn-checkout">Finalizar pedido</button>
+      <button type="button" class="btn-clear-cart" id="btn-clear-cart">Limpar carrinho</button>
+    </div>
+  </aside>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="script.js"></script>
+
+  <script>
+  /* ════════════════════════════════════════════════════
+     WIZARD 2.0 — navegação por etapas
+     Executa após script.js (acessa state, renderPatch,
+     syncControlsFromActiveSlot do escopo global)
+  ════════════════════════════════════════════════════ */
+  (function () {
+    'use strict';
+
+    /* ── 1. Corrigir shape inicial (opções removidas) ── */
+    var validShapes = ['top-arc', 'bottom-arc', 'dual'];
+    if (validShapes.indexOf(state.shape) === -1) {
+      state.shape = 'top-arc';
+      document.getElementById('shape-select').value = 'top-arc';
+      syncControlsFromActiveSlot();
+      renderPatch();
+    }
+
+    /* ── 2. Referências DOM ── */
+    var wizard      = document.getElementById('wizard');
+    var progressEl  = document.getElementById('wz-progress');
+    var panels      = [].slice.call(document.querySelectorAll('.wz-panel[data-step]'));
+    var prevBtn     = document.getElementById('wz-prev');
+    var nextBtn     = document.getElementById('wz-next');
+    var backBtn     = document.getElementById('wz-btn-back');
+
+    /* ── 3. Definição dos 8 passos ── */
+    var STEPS = [
+      { id: '1', label: 'Formato' },
+      { id: '2', label: 'Texto' },
+      { id: '3', label: 'Fonte' },
+      { id: '4', label: 'Cor do bordado' },
+      { id: '5', label: 'Cor do fundo' },
+      { id: '6', label: 'Cor da borda' },
+      { id: '7', label: 'Largura' },
+      { id: '8', label: 'Largura do texto' }
+    ];
+    var TOTAL = STEPS.length;   // 8; índice TOTAL = revisão
+    var cur   = 0;              // passo atual (0-indexed)
+
+    /* ── 4. Construir barra de progresso ── */
+    function buildProgress() {
+      progressEl.innerHTML = '';
+
+      STEPS.forEach(function (step, i) {
+        /* linha entre dots */
+        if (i > 0) {
+          var line = document.createElement('div');
+          line.className = 'wz-line';
+          line.id = 'wz-line-' + i;
+          line.setAttribute('role', 'none');
+          progressEl.appendChild(line);
+        }
+
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'wz-dot';
+        dot.id = 'wz-dot-' + i;
+        dot.textContent = String(i + 1);
+        dot.setAttribute('role', 'listitem');
+        dot.setAttribute('aria-label', 'Passo ' + (i + 1) + ': ' + step.label);
+        dot.setAttribute('title', step.label);
+        dot.dataset.nav = 'false';
+        dot.addEventListener('click', (function (idx) {
+          return function () {
+            if (dot.dataset.nav === 'true') goTo(idx);
+          };
+        })(i));
+        progressEl.appendChild(dot);
+      });
+
+      /* linha + dot de revisão */
+      var rLine = document.createElement('div');
+      rLine.className = 'wz-line';
+      rLine.id = 'wz-line-review';
+      rLine.setAttribute('role', 'none');
+      progressEl.appendChild(rLine);
+
+      var rDot = document.createElement('button');
+      rDot.type = 'button';
+      rDot.className = 'wz-dot wz-dot--review';
+      rDot.id = 'wz-dot-review';
+      rDot.textContent = '✓';
+      rDot.setAttribute('role', 'listitem');
+      rDot.setAttribute('aria-label', 'Revisão');
+      rDot.setAttribute('title', 'Revisão');
+      rDot.dataset.nav = 'false';
+      rDot.addEventListener('click', function () {
+        if (rDot.dataset.nav === 'true') goTo(TOTAL);
+      });
+      progressEl.appendChild(rDot);
+    }
+
+    /* ── 5. Atualizar visual dos dots/linhas ── */
+    function syncProgress() {
+      var isReview = cur === TOTAL;
+
+      STEPS.forEach(function (_, i) {
+        var dot  = document.getElementById('wz-dot-' + i);
+        var line = document.getElementById('wz-line-' + i);
+        if (!dot) return;
+
+        var done   = isReview || i < cur;
+        var active = !isReview && i === cur;
+
+        dot.classList.toggle('is-active', active);
+        dot.classList.toggle('is-done',   done && !active);
+        /* navegável se já foi visitado ou estamos em revisão */
+        dot.dataset.nav = (done || isReview) ? 'true' : 'false';
+
+        if (line) line.classList.toggle('is-done', isReview || i <= cur);
+      });
+
+      var rDot  = document.getElementById('wz-dot-review');
+      var rLine = document.getElementById('wz-line-review');
+      if (rDot) {
+        rDot.classList.toggle('is-active', isReview);
+        rDot.classList.toggle('is-done',   false);
+        /* clicável ao chegar no último passo ou já em revisão */
+        rDot.dataset.nav = (cur >= TOTAL - 1) ? 'true' : 'false';
+      }
+      if (rLine) rLine.classList.toggle('is-done', isReview);
+    }
+
+    /* ── 6. Ir para um passo (ou revisão) ── */
+    function goTo(index) {
+      cur = index;
+      var isReview = index === TOTAL;
+
+      /* classe de revisão no wizard */
+      wizard.classList.toggle('wizard--review', isReview);
+
+      /* mostrar painel correto (em modo passo) */
+      panels.forEach(function (panel) {
+        var pIdx = parseInt(panel.dataset.step, 10) - 1;
+        panel.classList.toggle('is-active', !isReview && pIdx === index);
+      });
+
+      /* botões de navegação */
+      prevBtn.hidden = isReview || index === 0;
+      nextBtn.hidden = isReview;
+      if (!isReview) {
+        nextBtn.textContent = index === TOTAL - 1 ? 'Revisar →' : 'Próximo';
+      }
+
+      /* sincronizar controles com slot ativo */
+      syncControlsFromActiveSlot();
+
+      syncProgress();
+
+      /* em mobile, rolar o wizard para cima suavemente */
+      if (window.innerWidth <= 720) {
+        setTimeout(function () {
+          wizard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 30);
+      }
+    }
+
+    /* ── 7. Eventos ── */
+    prevBtn.addEventListener('click', function () {
+      if (cur > 0) goTo(cur - 1);
+    });
+
+    nextBtn.addEventListener('click', function () {
+      if (cur < TOTAL) goTo(cur + 1);
+    });
+
+    if (backBtn) {
+      backBtn.addEventListener('click', function () { goTo(0); });
+    }
+
+    /* ── 8. Inicializar ── */
+    buildProgress();
+    goTo(0);
+
+  })();
+  </script>
+</body>
+</html>
