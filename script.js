@@ -547,13 +547,21 @@ function renderDivPatch(el, geomShape, slot) {
   textSpan.style.transformOrigin = "center center";
   textSpan.style.transform = `scaleX(${scaleX.toFixed(4)})`;
 
-  el.appendChild(textSpan);
-  el.style.display = "flex";
-  el.style.justifyContent = "center";
-  el.style.alignItems = "center";
+  // Inner wrapper separates overflow clipping (outer) from flex centering (inner).
+  // iOS Safari has a bug where overflow:hidden on a flex container breaks centering.
+  const centerWrap = document.createElement("div");
+  centerWrap.style.position = "absolute";
+  centerWrap.style.inset = "0";
+  centerWrap.style.display = "flex";
+  centerWrap.style.justifyContent = "center";
+  centerWrap.style.alignItems = "center";
+  centerWrap.appendChild(textSpan);
+
+  el.appendChild(centerWrap);
+  el.style.display = "block";
+  el.style.position = "relative";
   el.style.fontFamily = fontStack;
   el.style.fontSize = `${baseFontSize}px`;
-  el.style.whiteSpace = "nowrap";
   el.style.overflow = "hidden";
   el.style.color = slot.textColor;
   el.style.backgroundColor = slot.bgColor;
