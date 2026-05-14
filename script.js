@@ -548,6 +548,9 @@ function renderDivPatch(el, geomShape, slot) {
   textSpan.style.transform = `scaleX(${scaleX.toFixed(4)})`;
 
   el.appendChild(textSpan);
+  el.style.display = "flex";
+  el.style.justifyContent = "center";
+  el.style.alignItems = "center";
   el.style.fontFamily = fontStack;
   el.style.fontSize = `${baseFontSize}px`;
   el.style.whiteSpace = "nowrap";
