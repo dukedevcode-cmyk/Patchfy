@@ -52,6 +52,14 @@
         <span class="nav-icon">📖</span>
         <span class="nav-label">Legenda</span>
       </button>
+      <button class="nav-item" data-view="pdp">
+        <span class="nav-icon">🛍️</span>
+        <span class="nav-label">Customizer (PDP)</span>
+      </button>
+      <button class="nav-item" data-view="status">
+        <span class="nav-icon">📊</span>
+        <span class="nav-label">Estado</span>
+      </button>
     </nav>
 
     <div class="lp-footer">
@@ -195,7 +203,85 @@
         <p class="view-desc">Estrutura e composição visual da página inicial. 6 secções ordenadas por prioridade de conversão.</p>
       </div>
 
-      <div class="home-anatomy">
+      <div class="view-mode-tabs">
+        <button class="vmt active" data-mode="lista">📋 Lista</button>
+        <button class="vmt" data-mode="wireframe">🖼️ Wireframe</button>
+      </div>
+
+      <div id="wf-home" class="wf-container" style="display:none">
+        <div class="wf-browser">
+          <div class="wf-browser-bar"><span></span><span></span><span></span></div>
+          <div class="wf-page">
+            <div class="wf-sec wf-sec--hero">
+              <div class="wf-label">① Hero — 90vh · imagem full-width com overlay</div>
+              <div class="wf-hero-bg"></div>
+              <div class="wf-hero-text">
+                <div class="wf-h1"></div>
+                <div class="wf-sub"></div>
+                <div class="wf-btns">
+                  <div class="wf-btn-p"></div>
+                  <div class="wf-btn-g"></div>
+                </div>
+              </div>
+            </div>
+            <div class="wf-sec wf-sec--trust">
+              <div class="wf-label">② Barra de Confiança — fundo #111 · 4 itens · padding 1.2rem</div>
+              <div class="wf-trust-row">
+                <div class="wf-pill"></div>
+                <div class="wf-pill"></div>
+                <div class="wf-pill"></div>
+                <div class="wf-pill"></div>
+              </div>
+            </div>
+            <div class="wf-sec wf-sec--custom">
+              <div class="wf-label">③ Destaque Customizer — grid 50/50 · fundo alternado</div>
+              <div class="wf-two-col">
+                <div class="wf-img-block"></div>
+                <div class="wf-text-col">
+                  <div class="wf-h2"></div>
+                  <div class="wf-step"></div>
+                  <div class="wf-step"></div>
+                  <div class="wf-step"></div>
+                  <div class="wf-btn-p wf-sm"></div>
+                </div>
+              </div>
+            </div>
+            <div class="wf-sec wf-sec--cols">
+              <div class="wf-label">④ Coleções em Destaque — grid 4 colunas · hover scale 1.04</div>
+              <div class="wf-grid-4">
+                <div class="wf-col-card"><span class="wf-card-icon">🎮</span></div>
+                <div class="wf-col-card"><span class="wf-card-icon">🎸</span></div>
+                <div class="wf-col-card"><span class="wf-card-icon">🚗</span></div>
+                <div class="wf-col-card"><span class="wf-card-icon">🏍️</span></div>
+              </div>
+            </div>
+            <div class="wf-sec wf-sec--social">
+              <div class="wf-label">⑤ Prova Social — UGC grid + reviews em cards</div>
+              <div class="wf-h2-center"></div>
+              <div class="wf-ugc-row">
+                <div class="wf-ugc-img"></div>
+                <div class="wf-ugc-img"></div>
+                <div class="wf-ugc-img"></div>
+                <div class="wf-ugc-img"></div>
+              </div>
+              <div class="wf-review-row">
+                <div class="wf-review"></div>
+                <div class="wf-review"></div>
+              </div>
+            </div>
+            <div class="wf-sec wf-sec--cta">
+              <div class="wf-label">⑥ CTA Final — fundo #111 · centrado · padding 5rem</div>
+              <div class="wf-h2-center"></div>
+              <div class="wf-btns wf-center">
+                <div class="wf-btn-p"></div>
+                <div class="wf-btn-g"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-anatomy" id="home-lista">
         <div class="anatomy-block ab-hero">
           <div class="ab-num">①</div>
           <div class="ab-main">
@@ -432,6 +518,193 @@
           <div class="box lang legend-item">🌍 Idioma / Mercado</div>
           <p>Mercado e idioma via Shopify Markets. Conteúdo e moeda adaptados por região.</p>
         </div>
+      </div>
+    </div>
+
+
+    <!-- ─ VIEW: Customizer (PDP) ─ -->
+    <div class="view" id="view-pdp">
+      <div class="view-header">
+        <h2 class="view-title">🛍️ Customizer (PDP)</h2>
+        <p class="view-desc">Anatomia da página de produto. Layout em duas colunas: preview dinâmico à esquerda, painel de configuração à direita.</p>
+      </div>
+
+      <div class="pdp-layout">
+        <div class="pdp-col">
+          <div class="pdp-col-title">Coluna Esquerda · Preview</div>
+          <div class="pdp-block">
+            <span class="pdp-block__icon">👁️</span>
+            <div class="pdp-block__content">
+              <div class="pdp-block__title">Preview em Tempo Real</div>
+              <div class="pdp-block__desc">Renderiza o patch com as configurações actuais. Div-based (shapes simples) ou SVG (arcos).</div>
+            </div>
+            <span class="pdp-block__tag pdp-block__tag--live">Live</span>
+          </div>
+          <div class="pdp-block">
+            <span class="pdp-block__icon">🔲</span>
+            <div class="pdp-block__content">
+              <div class="pdp-block__title">6 Formas Disponíveis</div>
+              <div class="pdp-block__desc">Rounded · Circle · Rocker · Top-arc · Bottom-arc · Dual</div>
+            </div>
+          </div>
+          <div class="pdp-block">
+            <span class="pdp-block__icon">↕️</span>
+            <div class="pdp-block__content">
+              <div class="pdp-block__title">Modo Dual</div>
+              <div class="pdp-block__desc">Dois patches empilhados (superior + inferior). Cada um com configuração independente via dualActiveSlot.</div>
+            </div>
+            <span class="pdp-block__tag pdp-block__tag--js">JS</span>
+          </div>
+          <div class="pdp-block">
+            <span class="pdp-block__icon">📐</span>
+            <div class="pdp-block__content">
+              <div class="pdp-block__title">Escala Proporcional</div>
+              <div class="pdp-block__desc">Preview escala com widthCm: referência 280px = 30cm. Proporção mantida em todos os tamanhos.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pdp-col">
+          <div class="pdp-col-title">Coluna Direita · Configuração</div>
+          <div class="pdp-block">
+            <span class="pdp-block__icon">✏️</span>
+            <div class="pdp-block__content">
+              <div class="pdp-block__title">Campo de Texto</div>
+              <div class="pdp-block__desc">Input livre. Sem uppercase forçado — respeita exactamente o que o utilizador escreve.</div>
+            </div>
+          </div>
+          <div class="pdp-block">
+            <span class="pdp-block__icon">🔤</span>
+            <div class="pdp-block__content">
+              <div class="pdp-block__title">Selector de Fonte</div>
+              <div class="pdp-block__desc">Fontes Wilcom com fallback visual Google Fonts. Old London e Old English carregados localmente via @font-face.</div>
+            </div>
+            <span class="pdp-block__tag pdp-block__tag--js">JS</span>
+          </div>
+          <div class="pdp-block">
+            <span class="pdp-block__icon">🎨</span>
+            <div class="pdp-block__content">
+              <div class="pdp-block__title">Color Pickers (×3)</div>
+              <div class="pdp-block__desc">Cor do texto · Cor de fundo · Cor da borda. Actualizações em tempo real no preview.</div>
+            </div>
+          </div>
+          <div class="pdp-block">
+            <span class="pdp-block__icon">📏</span>
+            <div class="pdp-block__content">
+              <div class="pdp-block__title">Slider de Tamanho</div>
+              <div class="pdp-block__desc">Valores disponíveis: 25 · 28 · 30 · 33 · 36 · 40 cm. Afecta a largura do preview e os limites do slider seguinte.</div>
+            </div>
+          </div>
+          <div class="pdp-block">
+            <span class="pdp-block__icon">↔️</span>
+            <div class="pdp-block__content">
+              <div class="pdp-block__title">Slider de Largura do Texto</div>
+              <div class="pdp-block__desc">Min: widthCm/2 · Max: widthCm×0.80. Controla scaleX (div) ou textLength (SVG).</div>
+            </div>
+          </div>
+          <div class="pdp-block">
+            <span class="pdp-block__icon">🛒</span>
+            <div class="pdp-block__content">
+              <div class="pdp-block__title">Quantidade + Adicionar ao Carrinho</div>
+              <div class="pdp-block__desc">Persiste em localStorage (patchfy-cart). Payload inclui geometria, cores e texto por slot.</div>
+            </div>
+            <span class="pdp-block__tag pdp-block__tag--shopify">Shopify</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pdp-fullwidth-section">
+        <div class="pdp-fw-title">📦 Abaixo do Fold</div>
+        <div class="pdp-fw-pills">
+          <div class="pdp-fw-pill">Descrição do produto</div>
+          <div class="pdp-fw-pill">Instruções de aplicação</div>
+          <div class="pdp-fw-pill">FAQ accordion</div>
+          <div class="pdp-fw-pill">Produtos relacionados</div>
+          <div class="pdp-fw-pill">Avaliações</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ─ VIEW: Estado ─ -->
+    <div class="view" id="view-status">
+      <div class="view-header">
+        <h2 class="view-title">📊 Estado do Projecto</h2>
+        <p class="view-desc">Rastreamento de progresso da implementação. Actualizado em Maio 2026.</p>
+      </div>
+
+      <div class="status-groups">
+
+        <div class="status-group">
+          <div class="sg-header">
+            <span class="sg-icon">🗺️</span>
+            <span class="sg-title">Sitemap Interativo</span>
+            <span class="sg-progress sg-progress--done">9 / 9</span>
+          </div>
+          <div class="sg-tasks">
+            <div class="task done"><span class="task-icon"></span>Estrutura base (HTML + CSS + JS)</div>
+            <div class="task done"><span class="task-icon"></span>Árvore de navegação com colapso animado</div>
+            <div class="task done"><span class="task-icon"></span>Anatomia da Home — lista das 6 secções</div>
+            <div class="task done"><span class="task-icon"></span>Wireframe visual da Home (toggle Lista / Wireframe)</div>
+            <div class="task done"><span class="task-icon"></span>Fluxo de compra (5 etapas)</div>
+            <div class="task done"><span class="task-icon"></span>Footer &amp; Legais (7 páginas)</div>
+            <div class="task done"><span class="task-icon"></span>Mercados &amp; Idiomas (4 mercados)</div>
+            <div class="task done"><span class="task-icon"></span>Legenda visual</div>
+            <div class="task done"><span class="task-icon"></span>Anatomia do Customizer (PDP)</div>
+          </div>
+        </div>
+
+        <div class="status-group">
+          <div class="sg-header">
+            <span class="sg-icon">🏠</span>
+            <span class="sg-title">Home Shopify — Liquid Sections</span>
+            <span class="sg-progress">0 / 7</span>
+          </div>
+          <div class="sg-tasks">
+            <div class="task todo"><span class="task-icon"></span>patchfy-home-hero.liquid</div>
+            <div class="task todo"><span class="task-icon"></span>patchfy-home-trust-bar.liquid</div>
+            <div class="task todo"><span class="task-icon"></span>patchfy-home-customizer.liquid</div>
+            <div class="task todo"><span class="task-icon"></span>patchfy-home-collections.liquid</div>
+            <div class="task todo"><span class="task-icon"></span>patchfy-home-social-proof.liquid</div>
+            <div class="task todo"><span class="task-icon"></span>patchfy-home-cta-final.liquid</div>
+            <div class="task todo"><span class="task-icon"></span>templates/index.json (activar secções)</div>
+          </div>
+        </div>
+
+        <div class="status-group">
+          <div class="sg-header">
+            <span class="sg-icon">🛠️</span>
+            <span class="sg-title">Customizer (PDP) — patchfy-dawn</span>
+            <span class="sg-progress">5 / 8</span>
+          </div>
+          <div class="sg-tasks">
+            <div class="task done"><span class="task-icon"></span>Preview live — div-based (rounded, circle, rocker)</div>
+            <div class="task done"><span class="task-icon"></span>Preview live — SVG (top-arc, bottom-arc)</div>
+            <div class="task done"><span class="task-icon"></span>Modo Dual (dois patches independentes)</div>
+            <div class="task done"><span class="task-icon"></span>Carrinho com localStorage</div>
+            <div class="task done"><span class="task-icon"></span>Fontes locais (Old London, Old English)</div>
+            <div class="task todo"><span class="task-icon"></span>Integração Shopify (line item properties)</div>
+            <div class="task todo"><span class="task-icon"></span>PDP Liquid section no tema Dawn</div>
+            <div class="task todo"><span class="task-icon"></span>Ligação ao checkout nativo Shopify</div>
+          </div>
+        </div>
+
+        <div class="status-group">
+          <div class="sg-header">
+            <span class="sg-icon">⚙️</span>
+            <span class="sg-title">Infraestrutura &amp; Deploy</span>
+            <span class="sg-progress">3 / 6</span>
+          </div>
+          <div class="sg-tasks">
+            <div class="task done"><span class="task-icon"></span>GitHub Action — sync automático do sitemap</div>
+            <div class="task done"><span class="task-icon"></span>GitHub Pages activo (dukedevcode-cmyk.github.io/Patchfy)</div>
+            <div class="task done"><span class="task-icon"></span>Branch de trabalho dev-duke</div>
+            <div class="task todo"><span class="task-icon"></span>Shopify CLI — push do tema Patchfy (Craft/Dawn)</div>
+            <div class="task todo"><span class="task-icon"></span>Shopify Markets configurados (PT · EN · ES · DE)</div>
+            <div class="task todo"><span class="task-icon"></span>Domínio personalizado</div>
+          </div>
+        </div>
+
       </div>
     </div>
 

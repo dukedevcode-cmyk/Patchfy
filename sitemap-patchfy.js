@@ -30,5 +30,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ── Toggle Lista / Wireframe na Anatomia da Home
+  const modeTabs = document.querySelectorAll('.vmt');
+  modeTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      modeTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const mode = tab.dataset.mode;
+      const lista     = document.getElementById('home-lista');
+      const wireframe = document.getElementById('wf-home');
+      if (mode === 'wireframe') {
+        lista.style.display     = 'none';
+        wireframe.style.display = 'block';
+      } else {
+        lista.style.display     = '';
+        wireframe.style.display = 'none';
+      }
+    });
+  });
+
 });
 
