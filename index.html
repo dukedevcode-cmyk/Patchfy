@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sitemap Patchfy</title>
+<link rel="stylesheet" href="sitemap-patchfy.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ══ PAINEL ESQUERDO ══ -->
+  <aside class="left-panel">
+
+    <div class="lp-brand">
+      <div class="lp-logo">P</div>
+      <div>
+        <div class="lp-name">Patchfy</div>
+        <div class="lp-sub">Sitemap v1.0</div>
+      </div>
+    </div>
+
+    <div class="lp-section-title">Estrutura</div>
+
+    <nav class="lp-nav">
+      <button class="nav-item active" data-view="tree">
+        <span class="nav-icon">🗺️</span>
+        <span class="nav-label">Árvore de Navegação</span>
+      </button>
+      <button class="nav-item" data-view="home">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Anatomia da Home</span>
+        <span class="nav-badge">6</span>
+      </button>
+      <button class="nav-item" data-view="flow">
+        <span class="nav-icon">🛒</span>
+        <span class="nav-label">Fluxo de Compra</span>
+        <span class="nav-badge">5</span>
+      </button>
+      <button class="nav-item" data-view="footer">
+        <span class="nav-icon">📄</span>
+        <span class="nav-label">Footer & Legais</span>
+        <span class="nav-badge">7</span>
+      </button>
+      <button class="nav-item" data-view="markets">
+        <span class="nav-icon">🌍</span>
+        <span class="nav-label">Mercados & Idiomas</span>
+        <span class="nav-badge">4</span>
+      </button>
+      <button class="nav-item" data-view="legend">
+        <span class="nav-icon">📖</span>
+        <span class="nav-label">Legenda</span>
+      </button>
+    </nav>
+
+    <div class="lp-footer">
+      <div class="lp-footer-text">Patchfy · Mai 2026</div>
+      <div class="lp-footer-text">cd9cp1-ga.myshopify.com</div>
+    </div>
+
+  </aside>
+
+  <!-- ══ PAINEL DIREITO ══ -->
+  <main class="right-panel">
+
+    <!-- ─ VIEW: Árvore de Navegação ─ -->
+    <div class="view active" id="view-tree">
+      <div class="view-header">
+        <h2 class="view-title">🗺️ Árvore de Navegação</h2>
+        <p class="view-desc">Estrutura completa das páginas e sua hierarquia. Clique numa secção para expandir ou colapsar.</p>
+      </div>
+
+      <div class="vtree">
+        <div class="box home tree-home">
+          <span class="icon">🏠</span>
+          <span class="label">HOME</span>
+        </div>
+        <div class="home-stub"></div>
+
+        <div class="vlevel-1">
+
+          <div class="vbranch" id="col-personalizar">
+            <div class="vrow">
+              <div class="box cta toggleable" data-col="col-personalizar">
+                <span class="icon">✏️</span>
+                <span class="label">Personalizar Patch</span>
+                <span class="tag">CTA</span>
+                <span class="chevron">▾</span>
+              </div>
+            </div>
+            <div class="children-wrap">
+              <div class="vlevel-2">
+                <div class="vrow"><div class="box leaf">Customizer (PDP)</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vbranch" id="col-colecoes">
+            <div class="vrow">
+              <div class="box section toggleable" data-col="col-colecoes">
+                <span class="icon">📦</span>
+                <span class="label">Coleções</span>
+                <span class="tag">Dropdown</span>
+                <span class="chevron">▾</span>
+              </div>
+            </div>
+            <div class="children-wrap">
+              <div class="vlevel-2">
+                <div class="vrow"><div class="box leaf">🎮 Gamer</div></div>
+                <div class="vrow"><div class="box leaf">🎸 Rocker</div></div>
+                <div class="vrow"><div class="box leaf">🚗 Automotivo</div></div>
+                <div class="vrow"><div class="box leaf">🏍️ Motoqueiro</div></div>
+                <div class="vrow"><div class="box leaf">🆕 Novidades</div></div>
+                <div class="vrow"><div class="box leaf">🏷️ Promoções</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vbranch" id="col-como-funciona">
+            <div class="vrow">
+              <div class="box section toggleable" data-col="col-como-funciona">
+                <span class="icon">💡</span>
+                <span class="label">Como Funciona</span>
+                <span class="chevron">▾</span>
+              </div>
+            </div>
+            <div class="children-wrap">
+              <div class="vlevel-2">
+                <div class="vrow"><div class="box leaf">O Processo</div></div>
+                <div class="vrow"><div class="box leaf">Materiais & Qualidade</div></div>
+                <div class="vrow"><div class="box leaf">Prazos & Envios</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vbranch" id="col-sobre-nos">
+            <div class="vrow">
+              <div class="box section toggleable" data-col="col-sobre-nos">
+                <span class="icon">🏷️</span>
+                <span class="label">Sobre Nós</span>
+                <span class="chevron">▾</span>
+              </div>
+            </div>
+            <div class="children-wrap">
+              <div class="vlevel-2">
+                <div class="vrow"><div class="box leaf">A Nossa História</div></div>
+                <div class="vrow"><div class="box leaf">Reviews & Galeria</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vbranch" id="col-blog">
+            <div class="vrow">
+              <div class="box section toggleable" data-col="col-blog">
+                <span class="icon">✍️</span>
+                <span class="label">Blog</span>
+                <span class="tag">SEO</span>
+                <span class="chevron">▾</span>
+              </div>
+            </div>
+            <div class="children-wrap">
+              <div class="vlevel-2">
+                <div class="vrow"><div class="box leaf">Dicas & Tutoriais</div></div>
+                <div class="vrow"><div class="box leaf">Posts por Nicho</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vbranch" id="col-contacto">
+            <div class="vrow">
+              <div class="box section toggleable" data-col="col-contacto">
+                <span class="icon">📬</span>
+                <span class="label">Contacto</span>
+                <span class="chevron">▾</span>
+              </div>
+            </div>
+            <div class="children-wrap">
+              <div class="vlevel-2">
+                <div class="vrow"><div class="box leaf">Formulário</div></div>
+                <div class="vrow"><div class="box leaf">WhatsApp / Email</div></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ─ VIEW: Anatomia da Home ─ -->
+    <div class="view" id="view-home">
+      <div class="view-header">
+        <h2 class="view-title">🏠 Anatomia da Home</h2>
+        <p class="view-desc">Estrutura e composição visual da página inicial. 6 secções ordenadas por prioridade de conversão.</p>
+      </div>
+
+      <div class="home-anatomy">
+        <div class="anatomy-block ab-hero">
+          <div class="ab-num">①</div>
+          <div class="ab-main">
+            <div class="ab-title">Hero</div>
+            <div class="ab-body">
+              <div class="ab-pill img">Imagem full-width</div>
+              <div class="ab-pill txt">Headline + Subline</div>
+              <div class="ab-pill cta">CTA — Personalizar →</div>
+              <div class="ab-pill cta-sec">CTA — Ver Coleções</div>
+            </div>
+          </div>
+          <div class="ab-ratio">80% imagem<br>20% texto</div>
+        </div>
+
+        <div class="anatomy-block ab-trust">
+          <div class="ab-num">②</div>
+          <div class="ab-main">
+            <div class="ab-title">Barra de Confiança</div>
+            <div class="ab-body">
+              <div class="ab-pill txt">🧵 +5.000 patches</div>
+              <div class="ab-pill txt">⭐ 4.9 avaliações</div>
+              <div class="ab-pill txt">🚚 Envio PT·ES·DE·USA</div>
+              <div class="ab-pill txt">✅ Garantia</div>
+            </div>
+          </div>
+          <div class="ab-ratio">100% texto</div>
+        </div>
+
+        <div class="anatomy-block ab-customizer">
+          <div class="ab-num">③</div>
+          <div class="ab-main">
+            <div class="ab-title">Destaque Customizer</div>
+            <div class="ab-body">
+              <div class="ab-pill img">Preview do Customizer</div>
+              <div class="ab-pill txt">3 passos explicados</div>
+              <div class="ab-pill cta">CTA — Começar agora →</div>
+            </div>
+          </div>
+          <div class="ab-ratio">50% imagem<br>50% texto</div>
+        </div>
+
+        <div class="anatomy-block ab-collections">
+          <div class="ab-num">④</div>
+          <div class="ab-main">
+            <div class="ab-title">Coleções em Destaque</div>
+            <div class="ab-body">
+              <div class="ab-pill img">🎮 Gamer</div>
+              <div class="ab-pill img">🎸 Rocker</div>
+              <div class="ab-pill img">🚗 Automotivo</div>
+              <div class="ab-pill img">🏍️ Motoqueiro</div>
+            </div>
+          </div>
+          <div class="ab-ratio">70% imagem<br>30% texto</div>
+        </div>
+
+        <div class="anatomy-block ab-social">
+          <div class="ab-num">⑤</div>
+          <div class="ab-main">
+            <div class="ab-title">Prova Social</div>
+            <div class="ab-body">
+              <div class="ab-pill img">Galeria UGC (clientes)</div>
+              <div class="ab-pill txt">Reviews ★★★★★</div>
+            </div>
+          </div>
+          <div class="ab-ratio">75% imagem<br>25% texto</div>
+        </div>
+
+        <div class="anatomy-block ab-cta">
+          <div class="ab-num">⑥</div>
+          <div class="ab-main">
+            <div class="ab-title">CTA Final</div>
+            <div class="ab-body">
+              <div class="ab-pill cta">CTA — Personalizar agora</div>
+              <div class="ab-pill cta-sec">Ver todas as coleções</div>
+            </div>
+          </div>
+          <div class="ab-ratio">100% texto</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ─ VIEW: Fluxo de Compra ─ -->
+    <div class="view" id="view-flow">
+      <div class="view-header">
+        <h2 class="view-title">🛒 Fluxo de Compra</h2>
+        <p class="view-desc">Sequência de páginas desde o produto até à confirmação do pedido.</p>
+      </div>
+
+      <div class="flow-col">
+        <div class="flow-step">
+          <div class="flow-step__icon">🛍️</div>
+          <div class="flow-step__body">
+            <div class="flow-step__title">Produto (PDP)</div>
+            <div class="flow-step__desc">Página do produto com customizer integrado ou variantes prontas</div>
+          </div>
+        </div>
+        <div class="flow-connector"><div class="flow-line"></div></div>
+        <div class="flow-step">
+          <div class="flow-step__icon">🧺</div>
+          <div class="flow-step__body">
+            <div class="flow-step__title">Carrinho</div>
+            <div class="flow-step__desc">Line item properties exibidas — personalização guardada</div>
+          </div>
+        </div>
+        <div class="flow-connector"><div class="flow-line"></div></div>
+        <div class="flow-step">
+          <div class="flow-step__icon">💳</div>
+          <div class="flow-step__body">
+            <div class="flow-step__title">Checkout</div>
+            <div class="flow-step__desc">Checkout nativo Shopify — suporte a Shopify Payments, MB Way, etc.</div>
+          </div>
+        </div>
+        <div class="flow-connector"><div class="flow-line"></div></div>
+        <div class="flow-step">
+          <div class="flow-step__icon">✅</div>
+          <div class="flow-step__body">
+            <div class="flow-step__title">Confirmação de Pedido</div>
+            <div class="flow-step__desc">Página de thank you com resumo e número de encomenda</div>
+          </div>
+        </div>
+        <div class="flow-connector"><div class="flow-line"></div></div>
+        <div class="flow-step">
+          <div class="flow-step__icon">📧</div>
+          <div class="flow-step__body">
+            <div class="flow-step__title">Email de Confirmação</div>
+            <div class="flow-step__desc">Email automático com detalhes da encomenda e prazo de entrega</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ─ VIEW: Footer & Legais ─ -->
+    <div class="view" id="view-footer">
+      <div class="view-header">
+        <h2 class="view-title">📄 Footer & Legais</h2>
+        <p class="view-desc">Páginas de suporte e documentos legais acessíveis pelo rodapé.</p>
+      </div>
+
+      <div class="grid-cards">
+        <div class="grid-card"><div class="gc-icon">❓</div><div class="gc-title">FAQ</div><div class="gc-desc">Perguntas frequentes sobre personalização, envios e materiais</div></div>
+        <div class="grid-card"><div class="gc-icon">🚚</div><div class="gc-title">Envios & Entregas</div><div class="gc-desc">Prazos, transportadoras e zonas de entrega por país</div></div>
+        <div class="grid-card"><div class="gc-icon">↩️</div><div class="gc-title">Política de Devoluções</div><div class="gc-desc">Condições de troca e reembolso para produtos com defeito</div></div>
+        <div class="grid-card"><div class="gc-icon">🔒</div><div class="gc-title">Política de Privacidade</div><div class="gc-desc">Tratamento de dados pessoais — RGPD</div></div>
+        <div class="grid-card"><div class="gc-icon">📄</div><div class="gc-title">Termos e Condições</div><div class="gc-desc">Termos de uso da plataforma e condições de venda</div></div>
+        <div class="grid-card"><div class="gc-icon">🍪</div><div class="gc-title">Cookies</div><div class="gc-desc">Política de cookies e gestão de consentimento</div></div>
+        <div class="grid-card"><div class="gc-icon">🤝</div><div class="gc-title">Programa de Afiliados</div><div class="gc-desc">Parceiros e programa de revenda — expansão futura</div></div>
+      </div>
+    </div>
+
+
+    <!-- ─ VIEW: Mercados & Idiomas ─ -->
+    <div class="view" id="view-markets">
+      <div class="view-header">
+        <h2 class="view-title">🌍 Mercados & Idiomas</h2>
+        <p class="view-desc">Gestão de mercados via Shopify Markets. Cada mercado tem moeda, idioma e domínio próprios.</p>
+      </div>
+
+      <div class="markets-grid">
+        <div class="market-card market-pt">
+          <div class="market-flag">🇵🇹</div>
+          <div class="market-name">Portugal</div>
+          <div class="market-lang">Português</div>
+          <div class="market-details">
+            <span>EUR €</span>
+            <span>Mercado principal</span>
+          </div>
+        </div>
+        <div class="market-card market-us">
+          <div class="market-flag">🇺🇸</div>
+          <div class="market-name">USA</div>
+          <div class="market-lang">English</div>
+          <div class="market-details">
+            <span>USD $</span>
+            <span>Alta prioridade</span>
+          </div>
+        </div>
+        <div class="market-card market-es">
+          <div class="market-flag">🇪🇸</div>
+          <div class="market-name">España</div>
+          <div class="market-lang">Español</div>
+          <div class="market-details">
+            <span>EUR €</span>
+            <span>Mercado próximo</span>
+          </div>
+        </div>
+        <div class="market-card market-de">
+          <div class="market-flag">🇩🇪</div>
+          <div class="market-name">Deutschland</div>
+          <div class="market-lang">Deutsch</div>
+          <div class="market-details">
+            <span>EUR €</span>
+            <span>Expansão</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ─ VIEW: Legenda ─ -->
+    <div class="view" id="view-legend">
+      <div class="view-header">
+        <h2 class="view-title">📖 Legenda</h2>
+        <p class="view-desc">Referência visual para os tipos de elementos usados neste sitemap.</p>
+      </div>
+
+      <div class="legend-list">
+        <div class="legend-row">
+          <div class="box home legend-item">🏠 Página inicial</div>
+          <p>Ponto de entrada principal do site. Único nó raiz da árvore.</p>
+        </div>
+        <div class="legend-row">
+          <div class="box cta legend-item">✏️ CTA Principal</div>
+          <p>Ação primária de conversão. Leva diretamente ao customizer ou ao checkout.</p>
+        </div>
+        <div class="legend-row">
+          <div class="box section legend-item">📦 Secção de nível 1</div>
+          <p>Item do menu principal. Clicável na árvore — expande ou colapsa os filhos.</p>
+        </div>
+        <div class="legend-row">
+          <div class="box leaf legend-item">Página de nível 2</div>
+          <p>Subpágina ou item de coleção. Acessível através da secção pai.</p>
+        </div>
+        <div class="legend-row">
+          <div class="box flow legend-item">💳 Fluxo de compra</div>
+          <p>Etapa sequencial do processo de compra. Gerido nativamente pelo Shopify.</p>
+        </div>
+        <div class="legend-row">
+          <div class="box footer-box legend-item">📄 Footer / Legal</div>
+          <p>Páginas de suporte e documentos legais. Acessíveis pelo rodapé.</p>
+        </div>
+        <div class="legend-row">
+          <div class="box lang legend-item">🌍 Idioma / Mercado</div>
+          <p>Mercado e idioma via Shopify Markets. Conteúdo e moeda adaptados por região.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="sitemap-patchfy.js"></script>
+</body>
+</html>
