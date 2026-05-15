@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ── Navegação entre views
-  const navItems = document.querySelectorAll('.nav-item');
-  const views    = document.querySelectorAll('.view');
+  const navItems       = document.querySelectorAll('.nav-item[data-view]');
+  const views          = document.querySelectorAll('.view');
+  const mobileLabel    = document.getElementById('mobile-view-label');
 
   navItems.forEach(item => {
     item.addEventListener('click', () => {
@@ -15,12 +16,39 @@ document.addEventListener('DOMContentLoaded', () => {
         v.classList.remove('active');
         if (v.id === 'view-' + target) {
           v.classList.add('active');
-          // scroll to top when switching
-          v.closest('.right-panel').scrollTo({ top: 0, behavior: 'instant' });
+          const rp = v.closest('.right-panel');
+          if (rp) rp.scrollTo({ top: 0, behavior: 'instant' });
+          else window.scrollTo({ top: 0, behavior: 'instant' });
         }
       });
+
+      // update mobile label
+      const label = item.querySelector('.nav-label');
+      if (label && mobileLabel) mobileLabel.textContent = label.textContent;
+
+      // close panel on mobile
+      document.body.classList.remove('panel-open');
     });
   });
+
+  // ── Mobile nav toggle
+  const navToggle  = document.getElementById('nav-toggle');
+  const navOverlay = document.getElementById('nav-overlay');
+
+  navToggle.addEventListener('click', () => {
+    document.body.classList.toggle('panel-open');
+  });
+  navOverlay.addEventListener('click', () => {
+    document.body.classList.remove('panel-open');
+  });
+
+  // fechar painel ao clicar no link da loja (mobile)
+  const storeLink = document.querySelector('.nav-item--store');
+  if (storeLink) {
+    storeLink.addEventListener('click', () => {
+      document.body.classList.remove('panel-open');
+    });
+  }
 
   // ── Toggle colapsar/expandir (árvore)
   document.querySelectorAll('.toggleable').forEach(box => {
