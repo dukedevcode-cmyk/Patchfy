@@ -133,6 +133,23 @@ body {
   background: rgba(196,164,132,0.15);
   color: #C4A484;
 }
+.nav-item--store {
+  text-decoration: none;
+  margin-bottom: 6px;
+  background: rgba(196,164,132,0.06);
+  border: 1px solid rgba(196,164,132,0.18);
+  color: #C4A484;
+}
+.nav-item--store:hover {
+  background: rgba(196,164,132,0.12);
+  color: #d4b898;
+}
+.nav-ext {
+  font-size: 11px;
+  color: #C4A484;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
 
 /* lp footer */
 .lp-footer {
