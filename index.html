@@ -19,7 +19,7 @@
     <div class="mobile-bar__logo">P</div>
     <span class="mobile-bar__name">Patchfy</span>
     <span class="mobile-bar__sep">·</span>
-    <span class="mobile-bar__view" id="mobile-view-label">Árvore de Navegação</span>
+    <span class="mobile-bar__view" id="mobile-view-label">Briefing</span>
   </div>
 </div>
 <div class="nav-overlay" id="nav-overlay"></div>
@@ -46,7 +46,11 @@
         <span class="nav-ext">↗</span>
       </a>
 
-      <button class="nav-item active" data-view="tree">
+      <button class="nav-item active" data-view="briefing">
+        <span class="nav-icon">📋</span>
+        <span class="nav-label">Briefing</span>
+      </button>
+      <button class="nav-item" data-view="tree">
         <span class="nav-icon">🗺️</span>
         <span class="nav-label">Árvore de Navegação</span>
       </button>
@@ -94,8 +98,114 @@
   <!-- ══ PAINEL DIREITO ══ -->
   <main class="right-panel">
 
+    <!-- ─ VIEW: Briefing ─ -->
+    <div class="view active" id="view-briefing">
+      <div class="view-header">
+        <h2 class="view-title">📋 Briefing</h2>
+        <p class="view-desc">Documento de apresentação para o cliente. Explica o que é este sitemap, o que é a Patchfy online e como validar a estrutura antes do desenvolvimento.</p>
+      </div>
+
+      <div class="brief-intro">
+        <div class="brief-badge">📬 Documento preparado para o cliente Patchfy</div>
+        <h3 class="brief-headline">Bem-vindo ao Sitemap da tua loja</h3>
+        <p class="brief-lead">Este documento é o mapa completo do site que vamos construir para a Patchfy. Antes de desenvolver qualquer página, definimos aqui toda a estrutura — para que possas validar, dar feedback e garantir que o resultado final corresponde exatamente à tua visão.</p>
+      </div>
+
+      <div class="brief-cards">
+
+        <div class="brief-card">
+          <div class="brief-card__icon">🗺️</div>
+          <div class="brief-card__body">
+            <h4 class="brief-card__title">O que é um sitemap?</h4>
+            <p class="brief-card__text">Pensa num sitemap como a planta de arquitetura de um edifício. Antes de começar a construção, o arquiteto desenha todas as divisões, portas e corredores. O sitemap faz o mesmo para o teu site: mostra quais páginas vão existir, como estão organizadas entre si e como os teus clientes vão navegar por elas.</p>
+            <p class="brief-card__text">Ao validares este documento, estás a aprovar a estrutura antes de qualquer linha de código ser escrita — evitando retrabalho e garantindo que nada importante fica de fora.</p>
+          </div>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card__icon">🧵</div>
+          <div class="brief-card__body">
+            <h4 class="brief-card__title">A Patchfy online — o que vai ser possível fazer</h4>
+            <p class="brief-card__text">A loja vai funcionar na plataforma Shopify e vai permitir aos teus clientes:</p>
+            <ul class="brief-list">
+              <li><strong>Criar um patch 100% personalizado</strong> — escolher o formato, o tamanho, o texto, a fonte e as cores diretamente no site, com pré-visualização em tempo real</li>
+              <li><strong>Comprar coleções prontas</strong> — Gamer, Rocker, Automotivo e Motoqueiro</li>
+              <li><strong>Pagar online com segurança</strong> — via Shopify Payments, MB Way e outros métodos</li>
+              <li><strong>Receber em casa</strong> — entregas para Portugal, Espanha, Alemanha e EUA, com preço e idioma adaptados a cada país</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card__icon">📄</div>
+          <div class="brief-card__body">
+            <h4 class="brief-card__title">O que está mapeado neste documento</h4>
+            <p class="brief-card__text">Usa o menu à esquerda para explorar cada área. Aqui está um resumo do que vais encontrar:</p>
+            <div class="brief-areas">
+              <div class="brief-area">
+                <span class="brief-area__num">①</span>
+                <div><strong>Árvore de Navegação</strong><span class="brief-area__sub"> — todas as páginas do site e como se ligam. Clica em cada item para ver as subpáginas.</span></div>
+              </div>
+              <div class="brief-area">
+                <span class="brief-area__num">②</span>
+                <div><strong>Anatomia da Home</strong><span class="brief-area__sub"> — o que aparece na página inicial, em que ordem e com que objetivo.</span></div>
+              </div>
+              <div class="brief-area">
+                <span class="brief-area__num">③</span>
+                <div><strong>Fluxo de Compra</strong><span class="brief-area__sub"> — o caminho que o cliente percorre desde escolher um patch até receber a confirmação do pedido.</span></div>
+              </div>
+              <div class="brief-area">
+                <span class="brief-area__num">④</span>
+                <div><strong>Footer &amp; Legais</strong><span class="brief-area__sub"> — as páginas de suporte acessíveis pelo rodapé: envios, devoluções, privacidade, FAQ, etc.</span></div>
+              </div>
+              <div class="brief-area">
+                <span class="brief-area__num">⑤</span>
+                <div><strong>Mercados &amp; Idiomas</strong><span class="brief-area__sub"> — os 4 países onde a loja vai vender, cada um com o seu idioma e moeda.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="brief-card">
+          <div class="brief-card__icon">💡</div>
+          <div class="brief-card__body">
+            <h4 class="brief-card__title">Como navegar este sitemap</h4>
+            <ul class="brief-list">
+              <li>Clica nos itens do <strong>menu à esquerda</strong> para mudar de secção</li>
+              <li>Na <strong>Árvore de Navegação</strong>, clica em qualquer bloco para expandir e ver as suas subpáginas</li>
+              <li>O botão <strong>"🛒 Ver Loja ↗"</strong> no topo do menu abre a versão atual da loja para comparar</li>
+              <li>No telemóvel, toca no <strong>ícone de menu (☰)</strong> no canto superior esquerdo para abrir a navegação</li>
+              <li>Este documento está <strong>sempre atualizado</strong> — podes partilhar este link com quem precisares</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="brief-card brief-card--cta">
+          <div class="brief-card__icon">✅</div>
+          <div class="brief-card__body">
+            <h4 class="brief-card__title">O que precisamos de ti — Checklist de validação</h4>
+            <p class="brief-card__text">Depois de explorares o sitemap, responde a estas perguntas. Qualquer dúvida ou sugestão é muito bem-vinda:</p>
+            <div class="brief-checklist">
+              <label class="brief-check"><input type="checkbox"> A estrutura geral do site faz sentido para o teu negócio?</label>
+              <label class="brief-check"><input type="checkbox"> Falta alguma página ou secção que consideras importante?</label>
+              <label class="brief-check"><input type="checkbox"> O fluxo de compra parece claro e completo para os teus clientes?</label>
+              <label class="brief-check"><input type="checkbox"> Os 4 mercados (PT, ES, DE, USA) e os respetivos idiomas estão corretos?</label>
+              <label class="brief-check"><input type="checkbox"> Tens alguma dúvida sobre o que foi mapeado?</label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="brief-footer">
+        <p>Questões ou feedback? Fala connosco em <strong>dukedevcode@gmail.com</strong></p>
+        <p class="brief-footer__sub">Patchfy · Sitemap v1.0 · Mai 2026</p>
+      </div>
+    </div>
+
+
     <!-- ─ VIEW: Árvore de Navegação ─ -->
-    <div class="view active" id="view-tree">
+    <div class="view" id="view-tree">
       <div class="view-header">
         <h2 class="view-title">🗺️ Árvore de Navegação</h2>
         <p class="view-desc">Estrutura completa das páginas e sua hierarquia. Clique numa secção para expandir ou colapsar.</p>
@@ -110,7 +220,7 @@
 
         <div class="vlevel-1">
 
-          <div class="vbranch" id="col-personalizar">
+          <div class="vbranch collapsed" id="col-personalizar">
             <div class="vrow">
               <div class="box cta toggleable" data-col="col-personalizar">
                 <span class="icon">✏️</span>
@@ -126,7 +236,7 @@
             </div>
           </div>
 
-          <div class="vbranch" id="col-colecoes">
+          <div class="vbranch collapsed" id="col-colecoes">
             <div class="vrow">
               <div class="box section toggleable" data-col="col-colecoes">
                 <span class="icon">📦</span>
@@ -147,7 +257,7 @@
             </div>
           </div>
 
-          <div class="vbranch" id="col-como-funciona">
+          <div class="vbranch collapsed" id="col-como-funciona">
             <div class="vrow">
               <div class="box section toggleable" data-col="col-como-funciona">
                 <span class="icon">💡</span>
@@ -164,7 +274,7 @@
             </div>
           </div>
 
-          <div class="vbranch" id="col-sobre-nos">
+          <div class="vbranch collapsed" id="col-sobre-nos">
             <div class="vrow">
               <div class="box section toggleable" data-col="col-sobre-nos">
                 <span class="icon">🏷️</span>
@@ -180,7 +290,7 @@
             </div>
           </div>
 
-          <div class="vbranch" id="col-blog">
+          <div class="vbranch collapsed" id="col-blog">
             <div class="vrow">
               <div class="box section toggleable" data-col="col-blog">
                 <span class="icon">✍️</span>
@@ -197,7 +307,7 @@
             </div>
           </div>
 
-          <div class="vbranch" id="col-contacto">
+          <div class="vbranch collapsed" id="col-contacto">
             <div class="vrow">
               <div class="box section toggleable" data-col="col-contacto">
                 <span class="icon">📬</span>
