@@ -1,0 +1,62 @@
+name: Sync Sitemap → Patchfy-sitemap
+
+on:
+  push:
+    branches:
+      - dev-duke
+    paths:
+      - 'sitemap-patchfy/**'
+
+jobs:
+  sync:
+    name: Sync sitemap files to Patchfy-sitemap
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout dev-duke
+        uses: actions/checkout@v4
+        with:
+          ref: dev-duke
+          path: dev-duke
+
+      - name: Checkout Patchfy-sitemap
+        uses: actions/checkout@v4
+        with:
+          ref: Patchfy-sitemap
+          path: Patchfy-sitemap
+
+      - name: Copiar ficheiros do sitemap
+        run: |
+          cp dev-duke/sitemap-patchfy/sitemap-patchfy.html Patchfy-sitemap/index.html
+          cp dev-duke/sitemap-patchfy/sitemap-patchfy.css  Patchfy-sitemap/sitemap-patchfy.css
+          cp dev-duke/sitemap-patchfy/sitemap-patchfy.js   Patchfy-sitemap/sitemap-patchfy.js
+
+          if [ -f dev-duke/sitemap-patchfy/HOME-IMPLEMENTATION-BRIEF.md ]; then
+            cp dev-duke/sitemap-patchfy/HOME-IMPLEMENTATION-BRIEF.md \
+               Patchfy-sitemap/HOME-IMPLEMENTATION-BRIEF.md
+          fi
+
+      - name: Commit e push para Patchfy-sitemap
+        run: |
+          cd Patchfy-sitemap
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add index.html sitemap-patchfy.css sitemap-patchfy.js
+          git add HOME-IMPLEMENTATION-BRIEF.md 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "✓ Sem alterações — sync ignorado."
+            exit 0
+          fi
+
+          COMMIT_SHA=$(cd ../dev-duke && git rev-parse --short HEAD)
+          git commit -m "sync: sitemap from dev-duke@${COMMIT_SHA}"
+          git push origin Patchfy-sitemap
+
+          echo "✓ Sitemap sincronizado com sucesso."
+          echo "🌐 https://dukedevcode-cmyk.github.io/Patchfy/"
