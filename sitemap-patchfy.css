@@ -72,6 +72,11 @@ body {
   color: #333;
   padding: 20px 20px 8px;
 }
+.lp-section-title--nav {
+  padding: 16px 20px 4px;
+  border-top: 1px solid #141414;
+  margin-top: 6px;
+}
 
 /* nav */
 .lp-nav {
