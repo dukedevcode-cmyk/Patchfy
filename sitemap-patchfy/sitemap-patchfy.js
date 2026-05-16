@@ -144,7 +144,20 @@ function renderTLCarousel() {
     if (next) next.disabled = tlCurrent === TL_DAYS.length - 1;
 
     renderTLMini();
+    setTimeout(lockTLHeight, 50);
   }, 150);
+}
+
+let tlStageMinH = 0;
+
+function lockTLHeight() {
+  const stage = document.getElementById('tl-stage');
+  if (!stage) return;
+  const h = stage.offsetHeight;
+  if (h > 0 && h > tlStageMinH) {
+    tlStageMinH = h;
+    stage.style.minHeight = tlStageMinH + 'px';
+  }
 }
 
 function renderTLCalPopup() {
@@ -345,6 +358,8 @@ document.addEventListener('DOMContentLoaded', () => {
           else window.scrollTo({ top: 0, behavior: 'instant' });
         }
       });
+
+      if (target === 'progress') setTimeout(lockTLHeight, 50);
 
       // update mobile label
       const label = item.querySelector('.nav-label');
