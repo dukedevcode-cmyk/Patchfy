@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sitemap Patchfy</title>
-<link rel="stylesheet" href="sitemap-patchfy.css?v=5">
+<link rel="stylesheet" href="sitemap-patchfy.css?v=6">
 </head>
 <body>
 
@@ -772,112 +772,43 @@
         <p class="view-desc">Timeline do desenvolvimento da loja Patchfy. Actualizada diariamente com as principais mudanças.</p>
       </div>
 
-      <div class="tl-outer">
-        <div class="tl-wrapper">
+      <div class="tl-wrap">
 
-          <div class="tl-rail">
-            <div class="tl-rail__bg"></div>
-            <div class="tl-rail__fill" style="width:50%"></div>
+        <!-- Mini track + calendário -->
+        <div class="tl-mini">
+          <div class="tl-mini__bar">
+            <div class="tl-mini__bg"></div>
+            <div class="tl-mini__fill" id="tl-mini-fill"></div>
+            <div class="tl-mini__dots" id="tl-mini-dots"></div>
           </div>
-
-          <div class="tl-cols">
-
-            <!-- Dia 1 -->
-            <div class="tl-col">
-              <div class="tl-dot tl-dot--done">✓</div>
-              <div class="tl-card tl-card--done">
-                <div class="tl-card__head">
-                  <span class="tl-card__day">Dia 1</span>
-                  <span class="tl-badge tl-badge--done">Concluído</span>
-                </div>
-                <div class="tl-card__date">Qui · 14 Mai</div>
-                <ul class="tl-tasks">
-                  <li class="tl-task tl-task--done">
-                    <span class="tl-task__icon">✓</span>
-                    <span class="tl-task__text">Criação do Sitemap</span>
-                  </li>
-                  <li class="tl-task tl-task--done">
-                    <span class="tl-task__icon">✓</span>
-                    <span class="tl-task__text">Assinatura do domínio</span>
-                  </li>
-                  <li class="tl-task tl-task--done">
-                    <span class="tl-task__icon">✓</span>
-                    <span class="tl-task__text">Hospedagem Shopify</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Dia 2 -->
-            <div class="tl-col">
-              <div class="tl-dot tl-dot--done">✓</div>
-              <div class="tl-card tl-card--done">
-                <div class="tl-card__head">
-                  <span class="tl-card__day">Dia 2</span>
-                  <span class="tl-badge tl-badge--done">Concluído</span>
-                </div>
-                <div class="tl-card__date">Sex · 15 Mai</div>
-                <ul class="tl-tasks">
-                  <li class="tl-task tl-task--done">
-                    <span class="tl-task__icon">✓</span>
-                    <span class="tl-task__text">Desenvolvimento da aba Referências Visuais</span>
-                  </li>
-                  <li class="tl-task tl-task--done">
-                    <span class="tl-task__icon">✓</span>
-                    <span class="tl-task__text">Criação do Briefing</span>
-                  </li>
-                  <li class="tl-task tl-task--done">
-                    <span class="tl-task__icon">✓</span>
-                    <span class="tl-task__text">Início da implementação do Customizador Patchfy na Shopify</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Dia 3 -->
-            <div class="tl-col">
-              <div class="tl-dot tl-dot--active">3</div>
-              <div class="tl-card tl-card--active">
-                <div class="tl-card__head">
-                  <span class="tl-card__day">Dia 3</span>
-                  <span class="tl-badge tl-badge--active">Hoje</span>
-                </div>
-                <div class="tl-card__date">Sáb · 16 Mai</div>
-                <ul class="tl-tasks">
-                  <li class="tl-task tl-task--todo">
-                    <span class="tl-check-visual"></span>
-                    <span class="tl-task__text">Formatação do layout da home no Shopify</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Dia 4 -->
-            <div class="tl-col">
-              <div class="tl-dot tl-dot--future">4</div>
-              <div class="tl-card tl-card--future">
-                <div class="tl-card__head">
-                  <span class="tl-card__day">Dia 4</span>
-                </div>
-                <div class="tl-card__date">Dom · 17 Mai</div>
-                <div class="tl-card__empty">A planear</div>
-              </div>
-            </div>
-
-            <!-- Dia 5 -->
-            <div class="tl-col">
-              <div class="tl-dot tl-dot--future">5</div>
-              <div class="tl-card tl-card--future">
-                <div class="tl-card__head">
-                  <span class="tl-card__day">Dia 5</span>
-                </div>
-                <div class="tl-card__date">Seg · 18 Mai</div>
-                <div class="tl-card__empty">A planear</div>
-              </div>
-            </div>
-
+          <div class="tl-mini__cal">
+            <button class="tl-cal-btn" id="tl-cal-btn" title="Ir para um dia específico">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <rect x="1" y="2.5" width="12" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+                <line x1="1" y1="5.5" x2="13" y2="5.5" stroke="currentColor" stroke-width="1.3"/>
+                <line x1="4.5" y1="1" x2="4.5" y2="4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                <line x1="9.5" y1="1" x2="9.5" y2="4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="tl-cal-popup" id="tl-cal-popup"></div>
           </div>
         </div>
+
+        <!-- Carrossel -->
+        <div class="tl-carousel">
+          <button class="tl-arrow" id="tl-prev" aria-label="Dia anterior">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="tl-stage" id="tl-stage"></div>
+          <button class="tl-arrow" id="tl-next" aria-label="Próximo dia">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
       </div>
     </div>
 
@@ -1009,6 +940,6 @@
 </div>
 
 <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
-<script src="sitemap-patchfy.js?v=3"></script>
+<script src="sitemap-patchfy.js?v=4"></script>
 </body>
 </html>

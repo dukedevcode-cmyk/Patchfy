@@ -5,6 +5,180 @@ const REFS_PIN   = '1469';
 const REFS_AUTH_KEY = 'patchfy-refs-auth';
 const REFS_KEY   = 'patchfy-refs';
 
+// ── Timeline data
+const TL_DAYS = [
+  {
+    date: '2026-05-12',
+    label: 'Dia 1',
+    tasks: [
+      { text: 'Setup do repositório e estrutura de ficheiros', done: true },
+      { text: 'Configuração do tema Shopify (Dawn)', done: true },
+      { text: 'Briefing inicial com o cliente', done: true },
+      { text: 'Definição de paleta de cores e tipografia', done: true },
+    ]
+  },
+  {
+    date: '2026-05-13',
+    label: 'Dia 2',
+    tasks: [
+      { text: 'Estrutura da Home page', done: true },
+      { text: 'Hero section com headline e CTA', done: true },
+      { text: 'Secção de produto em destaque', done: true },
+      { text: 'Sitemap interativo (esta ferramenta)', done: true },
+    ]
+  },
+  {
+    date: '2026-05-14',
+    label: 'Dia 3',
+    tasks: [
+      { text: 'Configurador de patches (PDP)', done: true },
+      { text: 'Lógica de formas e preview em tempo real', done: true },
+      { text: 'Integração do carrinho', done: true },
+      { text: 'Fluxo de compra e checkout', done: true },
+    ]
+  },
+  {
+    date: '2026-05-15',
+    label: 'Dia 4',
+    tasks: [
+      { text: 'Footer e páginas legais', done: true },
+      { text: 'Mercados & idiomas (PT/EN)', done: true },
+      { text: 'Galeria de referências visuais (Cloudinary)', done: true },
+      { text: 'Timeline de progresso', done: true },
+    ]
+  },
+  {
+    date: '2026-05-16',
+    label: 'Dia 5',
+    tasks: [
+      { text: 'Carrossel na timeline de progresso', done: true },
+      { text: 'Revisão geral e testes cross-browser', done: false },
+      { text: 'Optimização mobile', done: false },
+      { text: 'Deploy final e entrega ao cliente', done: false },
+    ]
+  },
+];
+
+function getTLTodayIdx() {
+  const today = new Date().toISOString().slice(0, 10);
+  const idx = TL_DAYS.findIndex(d => d.date === today);
+  return idx >= 0 ? idx : TL_DAYS.length - 1;
+}
+
+let tlCurrent = getTLTodayIdx();
+
+function buildTLCard(dayIdx, slot) {
+  const today = new Date().toISOString().slice(0, 10);
+  if (dayIdx < 0 || dayIdx >= TL_DAYS.length) {
+    return '<div class="tl-ccard tl-ccard--' + slot + ' tl-ccard--ghost"></div>';
+  }
+  const day = TL_DAYS[dayIdx];
+  const isPast   = day.date < today;
+  const isToday  = day.date === today;
+  const isFuture = day.date > today;
+
+  let statusClass = 'tl-ccard--future';
+  let badgeHtml   = '';
+  const allDone = day.tasks && day.tasks.length > 0 && day.tasks.every(t => t.done);
+
+  if (allDone || (isPast && !isToday)) {
+    statusClass = 'tl-ccard--done';
+    badgeHtml   = '<span class="tl-cbadge tl-cbadge--done">Concluído</span>';
+  } else if (isToday || (!isFuture && !allDone)) {
+    statusClass = 'tl-ccard--active';
+    badgeHtml   = '<span class="tl-cbadge tl-cbadge--active">Em progresso</span>';
+  }
+
+  const dateObj = new Date(day.date + 'T12:00:00');
+  const dateStr = dateObj.toLocaleDateString('pt-PT', { weekday: 'short', day: 'numeric', month: 'short' });
+
+  let tasksHtml = '';
+  if (day.tasks && day.tasks.length > 0) {
+    tasksHtml = '<ul class="tl-ctasks">';
+    day.tasks.forEach(function(t) {
+      const cls  = t.done ? 'tl-ctask--done' : 'tl-ctask--todo';
+      const icon = t.done
+        ? '<span class="tl-task__icon">✓</span>'
+        : '<span class="tl-check-visual"></span>';
+      tasksHtml += '<li class="tl-ctask ' + cls + '">' + icon + '<span class="tl-task__text">' + t.text + '</span></li>';
+    });
+    tasksHtml += '</ul>';
+  } else {
+    const emptyMsg = isFuture ? 'A planear' : 'Nenhuma atualização registrada';
+    tasksHtml = '<p class="tl-cempty">' + emptyMsg + '</p>';
+  }
+
+  return (
+    '<div class="tl-ccard tl-ccard--' + slot + ' ' + statusClass + '">' +
+      '<div class="tl-ccard__head">' +
+        '<span class="tl-ccard__day">' + day.label + '</span>' +
+        badgeHtml +
+      '</div>' +
+      '<div class="tl-ccard__date">' + dateStr + '</div>' +
+      tasksHtml +
+    '</div>'
+  );
+}
+
+function renderTLMini() {
+  const fill   = document.getElementById('tl-mini-fill');
+  const dotsEl = document.getElementById('tl-mini-dots');
+  if (!fill || !dotsEl) return;
+
+  const pct = (tlCurrent / (TL_DAYS.length - 1)) * 100;
+  fill.style.width = pct + '%';
+
+  dotsEl.innerHTML = '';
+  TL_DAYS.forEach(function(d, i) {
+    const dot = document.createElement('button');
+    dot.className = 'tl-mini-dot' +
+      (i <= tlCurrent ? ' tl-mini-dot--done' : '') +
+      (i === tlCurrent ? ' tl-mini-dot--active' : '');
+    dot.title = d.label + ' — ' + d.date;
+    dot.addEventListener('click', function() { tlCurrent = i; renderTLCarousel(); });
+    dotsEl.appendChild(dot);
+  });
+}
+
+function renderTLCarousel() {
+  const stage = document.getElementById('tl-stage');
+  if (!stage) return;
+
+  stage.style.opacity = '0';
+  setTimeout(function() {
+    stage.innerHTML =
+      buildTLCard(tlCurrent - 1, 'prev') +
+      buildTLCard(tlCurrent,     'center') +
+      buildTLCard(tlCurrent + 1, 'next');
+    stage.style.opacity = '1';
+
+    const prev = document.getElementById('tl-prev');
+    const next = document.getElementById('tl-next');
+    if (prev) prev.disabled = tlCurrent === 0;
+    if (next) next.disabled = tlCurrent === TL_DAYS.length - 1;
+
+    renderTLMini();
+  }, 150);
+}
+
+function renderTLCalPopup() {
+  const popup = document.getElementById('tl-cal-popup');
+  if (!popup) return;
+  popup.innerHTML = '';
+  TL_DAYS.forEach(function(d, i) {
+    const item = document.createElement('button');
+    item.className = 'tl-cal-item' + (i === tlCurrent ? ' tl-cal-item--active' : '');
+    item.textContent = d.label + ' · ' + d.date;
+    item.addEventListener('click', function() {
+      tlCurrent = i;
+      renderTLCarousel();
+      renderTLCalPopup();
+      popup.classList.remove('open');
+    });
+    popup.appendChild(item);
+  });
+}
+
 function getRefs() {
   try { return JSON.parse(localStorage.getItem(REFS_KEY) || '[]'); } catch { return []; }
 }
@@ -213,6 +387,35 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.remove('panel-open');
     });
   }
+
+  // ── Timeline carrossel
+  const tlPrev   = document.getElementById('tl-prev');
+  const tlNext   = document.getElementById('tl-next');
+  const tlCalBtn = document.getElementById('tl-cal-btn');
+
+  if (tlPrev) tlPrev.addEventListener('click', function() {
+    if (tlCurrent > 0) { tlCurrent--; renderTLCarousel(); }
+  });
+  if (tlNext) tlNext.addEventListener('click', function() {
+    if (tlCurrent < TL_DAYS.length - 1) { tlCurrent++; renderTLCarousel(); }
+  });
+  if (tlCalBtn) {
+    renderTLCalPopup();
+    tlCalBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const popup = document.getElementById('tl-cal-popup');
+      if (popup) { popup.classList.toggle('open'); renderTLCalPopup(); }
+    });
+  }
+
+  document.addEventListener('click', function(e) {
+    const popup = document.getElementById('tl-cal-popup');
+    if (popup && popup.classList.contains('open') && !popup.contains(e.target) && e.target !== tlCalBtn) {
+      popup.classList.remove('open');
+    }
+  });
+
+  renderTLCarousel();
 
   // ── Toggle colapsar/expandir (árvore)
   document.querySelectorAll('.toggleable').forEach(box => {
