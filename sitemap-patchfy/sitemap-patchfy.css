@@ -1007,6 +1007,409 @@ body {
   padding: 20px 20px;
 }
 
+/* ── ab-desc (nova linha descritiva na lista) ── */
+.ab-desc {
+  font-size: 11px;
+  color: #555;
+  line-height: 1.5;
+  margin: 4px 0 8px;
+}
+
+/* ── Wireframe — layout com painel lateral ── */
+.wf-hint {
+  font-size: 11px;
+  color: #444;
+  text-align: center;
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}
+.wf-layout {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.wf-layout .wf-browser {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Secção clicável ── */
+.wf-clickable {
+  cursor: pointer;
+  transition: background 0.15s, outline 0.15s;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+.wf-clickable:hover {
+  background: rgba(196,164,132,0.04) !important;
+  outline-color: rgba(196,164,132,0.2);
+}
+.wf-clickable.wf-active {
+  outline-color: rgba(196,164,132,0.5);
+  background: rgba(196,164,132,0.07) !important;
+}
+.wf-sec-num {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #2a2a2a;
+  letter-spacing: 0.05em;
+}
+
+/* ── Wireframe — Hero rico ── */
+.wf-sec--hero {
+  background: linear-gradient(170deg, #0d0f0e 0%, #151210 60%, #100d0a 100%);
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wf-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  padding: 24px 16px;
+}
+.wf-hero-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.2;
+}
+.wf-hero-sub {
+  font-size: 10px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.wf-hero-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.wf-real-btn {
+  height: 28px;
+  padding: 0 16px;
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+.wf-real-btn--gold {
+  background: rgba(196,164,132,0.25);
+  border: 1px solid rgba(196,164,132,0.5);
+  color: #C4A484;
+}
+.wf-real-btn--outline {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.4);
+}
+.wf-real-btn--sm {
+  height: 24px;
+  font-size: 9px;
+  padding: 0 12px;
+  margin-top: 6px;
+}
+
+/* ── Wireframe — Trust bar rica ── */
+.wf-sec--trust {
+  padding: 10px 20px;
+  background: #080808;
+}
+.wf-trust-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+.wf-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9px;
+  color: #555;
+  padding: 4px 10px;
+  letter-spacing: 0.03em;
+}
+.wf-trust-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #C4A484;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+.wf-trust-sep {
+  width: 1px;
+  height: 12px;
+  background: #222;
+  flex-shrink: 0;
+}
+
+/* ── Wireframe — Customizer rico ── */
+.wf-sec--custom { background: #0b0b0b; }
+.wf-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+}
+.wf-custom-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 110px;
+  background: #111;
+  border-radius: 8px;
+  border: 1px solid #1e1e1e;
+}
+.wf-patch-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(196,164,132,0.08);
+  border: 2px solid rgba(196,164,132,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(196,164,132,0.4);
+}
+.wf-custom-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.wf-custom-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 4px;
+}
+.wf-step-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.wf-step-num {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(196,164,132,0.15);
+  border: 1px solid rgba(196,164,132,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 700;
+  color: #C4A484;
+  flex-shrink: 0;
+}
+.wf-step-txt {
+  font-size: 9px;
+  color: #444;
+}
+
+/* ── Wireframe — Coleções ricas ── */
+.wf-sec--cols { background: #0f0f0f; }
+.wf-cols-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.2);
+  text-align: center;
+  margin-bottom: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.wf-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.wf-col-card {
+  height: 80px;
+  border-radius: 6px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 8px;
+  border: 1px solid #1e1e1e;
+  position: relative;
+  overflow: hidden;
+}
+.wf-col-card--a { background: linear-gradient(180deg, #0d1219 0%, #101820 100%); }
+.wf-col-card--b { background: linear-gradient(180deg, #12100d 0%, #1a1008 100%); }
+.wf-col-card--c { background: linear-gradient(180deg, #0e0e12 0%, #12101a 100%); }
+.wf-col-card--d { background: linear-gradient(180deg, #110d0d 0%, #1a0f0f 100%); }
+.wf-col-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Wireframe — Avaliações ricas ── */
+.wf-sec--social { background: #0b0b0b; }
+.wf-social-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.2);
+  text-align: center;
+  margin-bottom: 12px;
+  letter-spacing: 0.04em;
+}
+.wf-review-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.wf-review-card {
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.wf-stars {
+  font-size: 10px;
+  color: #C4A484;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+.wf-review-text {
+  font-size: 8.5px;
+  color: #444;
+  line-height: 1.4;
+  font-style: italic;
+}
+.wf-review-author {
+  font-size: 8px;
+  color: #333;
+  font-weight: 700;
+}
+
+/* ── Wireframe — CTA Final rico ── */
+.wf-sec--cta {
+  background: linear-gradient(135deg, #0a0a0a 0%, #100d06 100%);
+  text-align: center;
+  padding: 20px;
+}
+.wf-cta-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.wf-cta-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  font-family: 'Playfair Display', Georgia, serif;
+}
+.wf-cta-trust {
+  font-size: 8.5px;
+  color: #333;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+/* ── Painel de informação (wireframe) ── */
+.wf-info-panel {
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: width 0.25s ease, opacity 0.2s ease;
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: 10px;
+  flex-shrink: 0;
+  position: relative;
+}
+.wf-info-panel.open {
+  width: 220px;
+  opacity: 1;
+}
+.wf-info-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #444;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px 4px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.wf-info-close:hover { color: #C4A484; }
+.wf-info-content {
+  padding: 14px 14px 14px 14px;
+  min-width: 220px;
+}
+.wf-info-content h4 {
+  font-size: 11px;
+  font-weight: 700;
+  color: #C4A484;
+  margin: 0 0 10px;
+  padding-right: 20px;
+  line-height: 1.3;
+}
+.wf-info-content p {
+  font-size: 10.5px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0 0 8px;
+}
+.wf-info-content ul {
+  margin: 0 0 8px;
+  padding-left: 14px;
+  list-style: disc;
+}
+.wf-info-content ul li {
+  font-size: 10px;
+  color: #555;
+  line-height: 1.6;
+}
+.wf-info-content strong { color: #888; }
+
+@media (max-width: 768px) {
+  .wf-layout {
+    flex-direction: column;
+  }
+  .wf-info-panel {
+    width: 100% !important;
+    border-radius: 8px;
+  }
+  .wf-info-panel.open {
+    width: 100% !important;
+  }
+  .wf-trust-items { flex-direction: column; align-items: center; }
+  .wf-trust-sep { display: none; }
+  .wf-two-col { grid-template-columns: 1fr; }
+  .wf-custom-preview { height: 80px; }
+  .wf-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .wf-review-cards { grid-template-columns: 1fr; }
+}
+
 /* ══ PDP ANATOMY ══ */
 .pdp-layout {
   display: grid;

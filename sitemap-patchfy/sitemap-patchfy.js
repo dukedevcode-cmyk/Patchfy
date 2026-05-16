@@ -240,6 +240,34 @@ function renderGallery() {
   });
 }
 
+// ── Wireframe info panel data
+const WF_INFO = {
+  hero: {
+    title: '① Fotografia principal + entrada',
+    body: '<p>Primeira secção da página — ocupa 90% da altura do ecrã. O visitante percebe imediatamente o que é a Patchfy e é convidado a agir.</p><ul><li><strong>Fotografia:</strong> cobre toda a largura, com camada escura por cima para o texto ser legível</li><li><strong>Título:</strong> "O teu patch. A tua história." — fonte Playfair Display</li><li><strong>Subtítulo:</strong> "Bordado à mão, feito para durar."</li><li><strong>Botão dourado:</strong> leva ao configurador</li><li><strong>Botão contorno:</strong> leva às coleções</li></ul>'
+  },
+  trust: {
+    title: '② Barra de credibilidade',
+    body: '<p>Faixa escura com 4 pontos que reforçam a confiança antes de o visitante continuar a explorar a loja.</p><ul><li>+5.000 patches entregues</li><li>4.9 de avaliação média</li><li>Envio para Portugal, Espanha, Alemanha e EUA</li><li>Garantia de qualidade em todos os artigos</li></ul><p>Cada ponto tem um ícone dourado à esquerda.</p>'
+  },
+  custom: {
+    title: '③ Como funciona o customizador',
+    body: '<p>Secção dividida ao meio: à esquerda uma pré-visualização do configurador, à direita 3 passos que explicam o processo.</p><ul><li><strong>Passo 1:</strong> Escolhe o formato do patch</li><li><strong>Passo 2:</strong> Escreve o texto</li><li><strong>Passo 3:</strong> Escolhe as cores</li></ul><p>O botão "Começar agora" leva diretamente ao configurador.</p>'
+  },
+  cols: {
+    title: '④ Coleções da loja',
+    body: '<p>Grelha de 4 cartões — cada um representa uma categoria de patches disponíveis.</p><ul><li>Gamer</li><li>Rocker</li><li>Automotivo</li><li>Motoqueiro</li></ul><p>Cada cartão tem fotografia de fundo, gradiente na base e o nome. Ao passar o rato, a imagem faz zoom suave.</p>'
+  },
+  social: {
+    title: '⑤ Avaliações de clientes',
+    body: '<p>Secção dedicada a mostrar que outros clientes ficaram satisfeitos — essencial para quem visita pela primeira vez.</p><ul><li>Cartões com avaliação de 5 estrelas e texto real</li><li>Nome do cliente em cada cartão</li><li>Fotografias de clientes reais (a adicionar)</li></ul>'
+  },
+  cta: {
+    title: '⑥ Convite para personalizar',
+    body: '<p>Última secção da página — resume tudo e convida o visitante a dar o passo final. Fundo com gradiente escuro para criar separação visual.</p><ul><li><strong>Título:</strong> "Pronto para criar o teu patch?"</li><li><strong>Nota:</strong> "Sem conta necessária · Entrega em 7–10 dias"</li><li><strong>Botão dourado:</strong> leva ao configurador</li><li><strong>Botão contorno:</strong> ver coleções</li></ul>'
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // ── PIN gate
@@ -448,6 +476,32 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // ── Wireframe — clique nas secções
+  const wfInfoPanel   = document.getElementById('wf-info-panel');
+  const wfInfoContent = document.getElementById('wf-info-content');
+  const wfInfoClose   = document.getElementById('wf-info-close');
+
+  document.querySelectorAll('.wf-clickable').forEach(function(sec) {
+    sec.addEventListener('click', function() {
+      const key  = sec.dataset.wf;
+      const info = WF_INFO[key];
+      if (!info || !wfInfoPanel) return;
+
+      document.querySelectorAll('.wf-clickable').forEach(function(s) { s.classList.remove('wf-active'); });
+      sec.classList.add('wf-active');
+
+      wfInfoContent.innerHTML = '<h4>' + info.title + '</h4>' + info.body;
+      wfInfoPanel.classList.add('open');
+    });
+  });
+
+  if (wfInfoClose) {
+    wfInfoClose.addEventListener('click', function() {
+      wfInfoPanel.classList.remove('open');
+      document.querySelectorAll('.wf-clickable').forEach(function(s) { s.classList.remove('wf-active'); });
+    });
+  }
 
 });
 
