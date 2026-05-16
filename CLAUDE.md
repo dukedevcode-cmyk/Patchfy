@@ -155,6 +155,12 @@ Persiste em `localStorage` (`patchfy-cart`). Cada item é o payload de `buildCar
 
 ---
 
+## Regras de trabalho
+
+- **Alterações de design (CSS, layout, componentes visuais):** invocar sempre a skill `/ui-ux-pro-max` antes de implementar.
+
+---
+
 ## Decisões de design tomadas
 
 - **Sem `text-transform: uppercase`** no `.patch-preview` — texto respeita exatamente o que o usuário digitar
