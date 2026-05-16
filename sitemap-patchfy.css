@@ -1269,7 +1269,7 @@ body {
   grid-template-columns: 1fr 1.35fr 1fr;
   gap: 10px;
   transition: opacity 0.15s;
-  align-items: start;
+  align-items: stretch;
 }
 
 /* Carousel cards */
