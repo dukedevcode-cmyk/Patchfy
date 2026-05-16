@@ -8,54 +8,40 @@ const REFS_KEY   = 'patchfy-refs';
 // ── Timeline data
 const TL_DAYS = [
   {
-    date: '2026-05-12',
+    date: '2026-05-14',
     label: 'Dia 1',
     tasks: [
-      { text: 'Setup do repositório e estrutura de ficheiros', done: true },
-      { text: 'Configuração do tema Shopify (Dawn)', done: true },
-      { text: 'Briefing inicial com o cliente', done: true },
-      { text: 'Definição de paleta de cores e tipografia', done: true },
-    ]
-  },
-  {
-    date: '2026-05-13',
-    label: 'Dia 2',
-    tasks: [
-      { text: 'Estrutura da Home page', done: true },
-      { text: 'Hero section com headline e CTA', done: true },
-      { text: 'Secção de produto em destaque', done: true },
-      { text: 'Sitemap interativo (esta ferramenta)', done: true },
-    ]
-  },
-  {
-    date: '2026-05-14',
-    label: 'Dia 3',
-    tasks: [
-      { text: 'Configurador de patches (PDP)', done: true },
-      { text: 'Lógica de formas e preview em tempo real', done: true },
-      { text: 'Integração do carrinho', done: true },
-      { text: 'Fluxo de compra e checkout', done: true },
+      { text: 'Criação do Sitemap', done: true },
+      { text: 'Assinatura do domínio', done: true },
+      { text: 'Hospedagem Shopify', done: true },
     ]
   },
   {
     date: '2026-05-15',
-    label: 'Dia 4',
+    label: 'Dia 2',
     tasks: [
-      { text: 'Footer e páginas legais', done: true },
-      { text: 'Mercados & idiomas (PT/EN)', done: true },
-      { text: 'Galeria de referências visuais (Cloudinary)', done: true },
-      { text: 'Timeline de progresso', done: true },
+      { text: 'Desenvolvimento da aba Referências Visuais', done: true },
+      { text: 'Criação do Briefing', done: true },
+      { text: 'Início da implementação do Customizador Patchfy dentro da Shopify', done: true },
     ]
   },
   {
     date: '2026-05-16',
-    label: 'Dia 5',
+    label: 'Dia 3',
     tasks: [
-      { text: 'Carrossel na timeline de progresso', done: true },
-      { text: 'Revisão geral e testes cross-browser', done: false },
-      { text: 'Optimização mobile', done: false },
-      { text: 'Deploy final e entrega ao cliente', done: false },
+      { text: 'Criação da barra de progresso com tasklist', done: true },
+      { text: 'Formatação do layout da home no Shopify', done: false },
     ]
+  },
+  {
+    date: '2026-05-17',
+    label: 'Dia 4',
+    tasks: []
+  },
+  {
+    date: '2026-05-18',
+    label: 'Dia 5',
+    tasks: []
   },
 ];
 
