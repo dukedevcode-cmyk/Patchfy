@@ -30,6 +30,7 @@ const TL_DAYS = [
     label: 'Dia 3',
     tasks: [
       { text: 'Criação da barra de progresso com tasklist', done: true },
+      { text: 'Otimização da aba Progresso para mobile', done: true },
       { text: 'Formatação do layout da home no Shopify', done: false },
     ]
   },
