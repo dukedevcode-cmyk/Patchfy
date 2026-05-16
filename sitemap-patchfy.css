@@ -1765,4 +1765,17 @@ body {
 
   /* markets grid */
   .markets-grid { grid-template-columns: 1fr; }
+
+  /* timeline — carrossel mobile: 1 card por vez */
+  .tl-stage {
+    grid-template-columns: 1fr;
+    min-height: 0 !important;
+  }
+  .tl-ccard--prev,
+  .tl-ccard--next { display: none; }
+  .tl-ccard--center { opacity: 1; }
+  .tl-arrow {
+    width: 36px;
+    padding: 10px 0;
+  }
 }
