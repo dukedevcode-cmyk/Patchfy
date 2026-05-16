@@ -31,6 +31,7 @@ const TL_DAYS = [
     tasks: [
       { text: 'Criação da barra de progresso com tasklist', done: true },
       { text: 'Otimização da aba Progresso para mobile', done: true },
+      { text: 'Atualização do briefing — Referências Visuais & Progresso', done: true },
       { text: 'Formatação do layout da home no Shopify', done: false },
     ]
   },
