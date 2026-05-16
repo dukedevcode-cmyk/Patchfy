@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sitemap Patchfy</title>
-<link rel="stylesheet" href="sitemap-patchfy.css?v=10">
+<link rel="stylesheet" href="sitemap-patchfy.css?v=11">
 </head>
 <body>
 
@@ -350,7 +350,7 @@
     <div class="view" id="view-home">
       <div class="view-header">
         <h2 class="view-title">🏠 Anatomia da Home</h2>
-        <p class="view-desc">Estrutura e composição visual da página inicial. 6 secções ordenadas por prioridade de conversão.</p>
+        <p class="view-desc">Estrutura da página inicial — 6 secções ordenadas para guiar o visitante até ao momento de personalizar o seu patch.</p>
       </div>
 
       <div class="view-mode-tabs">
@@ -358,89 +358,125 @@
         <button class="vmt" data-mode="wireframe">🖼️ Wireframe</button>
       </div>
 
+      <!-- WIREFRAME VIEW -->
       <div id="wf-home" class="wf-container" style="display:none">
-        <div class="wf-browser">
-          <div class="wf-browser-bar"><span></span><span></span><span></span></div>
-          <div class="wf-page">
-            <div class="wf-sec wf-sec--hero">
-              <div class="wf-label">① Hero — 90vh · imagem full-width com overlay</div>
-              <div class="wf-hero-bg"></div>
-              <div class="wf-hero-text">
-                <div class="wf-h1"></div>
-                <div class="wf-sub"></div>
-                <div class="wf-btns">
-                  <div class="wf-btn-p"></div>
-                  <div class="wf-btn-g"></div>
+        <p class="wf-hint">Clica em qualquer secção para ver os detalhes</p>
+        <div class="wf-layout">
+          <div class="wf-browser">
+            <div class="wf-browser-bar"><span></span><span></span><span></span></div>
+            <div class="wf-page">
+
+              <!-- ① Fotografia principal -->
+              <div class="wf-sec wf-sec--hero wf-clickable" data-wf="hero">
+                <div class="wf-sec-num">①</div>
+                <div class="wf-hero-content">
+                  <div class="wf-hero-title">O teu patch.<br>A tua história.</div>
+                  <div class="wf-hero-sub">Bordado à mão, feito para durar.</div>
+                  <div class="wf-hero-btns">
+                    <div class="wf-real-btn wf-real-btn--gold">Personalizar agora</div>
+                    <div class="wf-real-btn wf-real-btn--outline">Ver Coleções</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="wf-sec wf-sec--trust">
-              <div class="wf-label">② Barra de Confiança — fundo #111 · 4 itens · padding 1.2rem</div>
-              <div class="wf-trust-row">
-                <div class="wf-pill"></div>
-                <div class="wf-pill"></div>
-                <div class="wf-pill"></div>
-                <div class="wf-pill"></div>
-              </div>
-            </div>
-            <div class="wf-sec wf-sec--custom">
-              <div class="wf-label">③ Destaque Customizer — grid 50/50 · fundo alternado</div>
-              <div class="wf-two-col">
-                <div class="wf-img-block"></div>
-                <div class="wf-text-col">
-                  <div class="wf-h2"></div>
-                  <div class="wf-step"></div>
-                  <div class="wf-step"></div>
-                  <div class="wf-step"></div>
-                  <div class="wf-btn-p wf-sm"></div>
+
+              <!-- ② Barra de credibilidade -->
+              <div class="wf-sec wf-sec--trust wf-clickable" data-wf="trust">
+                <div class="wf-sec-num">②</div>
+                <div class="wf-trust-items">
+                  <div class="wf-trust-item"><span class="wf-trust-dot"></span>+5.000 patches entregues</div>
+                  <div class="wf-trust-sep"></div>
+                  <div class="wf-trust-item"><span class="wf-trust-dot"></span>4.9 avaliações</div>
+                  <div class="wf-trust-sep"></div>
+                  <div class="wf-trust-item"><span class="wf-trust-dot"></span>Envio PT · ES · USA</div>
+                  <div class="wf-trust-sep"></div>
+                  <div class="wf-trust-item"><span class="wf-trust-dot"></span>Garantia de qualidade</div>
                 </div>
               </div>
-            </div>
-            <div class="wf-sec wf-sec--cols">
-              <div class="wf-label">④ Coleções em Destaque — grid 4 colunas · hover scale 1.04</div>
-              <div class="wf-grid-4">
-                <div class="wf-col-card"><span class="wf-card-icon">🎮</span></div>
-                <div class="wf-col-card"><span class="wf-card-icon">🎸</span></div>
-                <div class="wf-col-card"><span class="wf-card-icon">🚗</span></div>
-                <div class="wf-col-card"><span class="wf-card-icon">🏍️</span></div>
+
+              <!-- ③ Como funciona -->
+              <div class="wf-sec wf-sec--custom wf-clickable" data-wf="custom">
+                <div class="wf-sec-num">③</div>
+                <div class="wf-two-col">
+                  <div class="wf-custom-preview">
+                    <div class="wf-patch-circle">PATCH</div>
+                  </div>
+                  <div class="wf-custom-steps">
+                    <div class="wf-custom-title">Como funciona</div>
+                    <div class="wf-step-row"><span class="wf-step-num">1</span><span class="wf-step-txt">Escolhe o formato</span></div>
+                    <div class="wf-step-row"><span class="wf-step-num">2</span><span class="wf-step-txt">Escreve o texto</span></div>
+                    <div class="wf-step-row"><span class="wf-step-num">3</span><span class="wf-step-txt">Escolhe as cores</span></div>
+                    <div class="wf-real-btn wf-real-btn--gold wf-real-btn--sm">Começar →</div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="wf-sec wf-sec--social">
-              <div class="wf-label">⑤ Prova Social — UGC grid + reviews em cards</div>
-              <div class="wf-h2-center"></div>
-              <div class="wf-ugc-row">
-                <div class="wf-ugc-img"></div>
-                <div class="wf-ugc-img"></div>
-                <div class="wf-ugc-img"></div>
-                <div class="wf-ugc-img"></div>
+
+              <!-- ④ Coleções -->
+              <div class="wf-sec wf-sec--cols wf-clickable" data-wf="cols">
+                <div class="wf-sec-num">④</div>
+                <div class="wf-cols-title">Coleções em Destaque</div>
+                <div class="wf-grid-4">
+                  <div class="wf-col-card wf-col-card--a"><span class="wf-col-label">Gamer</span></div>
+                  <div class="wf-col-card wf-col-card--b"><span class="wf-col-label">Rocker</span></div>
+                  <div class="wf-col-card wf-col-card--c"><span class="wf-col-label">Automotivo</span></div>
+                  <div class="wf-col-card wf-col-card--d"><span class="wf-col-label">Motoqueiro</span></div>
+                </div>
               </div>
-              <div class="wf-review-row">
-                <div class="wf-review"></div>
-                <div class="wf-review"></div>
+
+              <!-- ⑤ Avaliações -->
+              <div class="wf-sec wf-sec--social wf-clickable" data-wf="social">
+                <div class="wf-sec-num">⑤</div>
+                <div class="wf-social-title">O que os nossos clientes dizem</div>
+                <div class="wf-review-cards">
+                  <div class="wf-review-card">
+                    <div class="wf-stars">★★★★★</div>
+                    <div class="wf-review-text">"Ficou exatamente como queria. Qualidade incrível."</div>
+                    <div class="wf-review-author">— João M.</div>
+                  </div>
+                  <div class="wf-review-card">
+                    <div class="wf-stars">★★★★★</div>
+                    <div class="wf-review-text">"Entregue em 8 dias. Patch perfeito para o meu casaco."</div>
+                    <div class="wf-review-author">— Ana S.</div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="wf-sec wf-sec--cta">
-              <div class="wf-label">⑥ CTA Final — fundo #111 · centrado · padding 5rem</div>
-              <div class="wf-h2-center"></div>
-              <div class="wf-btns wf-center">
-                <div class="wf-btn-p"></div>
-                <div class="wf-btn-g"></div>
+
+              <!-- ⑥ Convite final -->
+              <div class="wf-sec wf-sec--cta wf-clickable" data-wf="cta">
+                <div class="wf-sec-num">⑥</div>
+                <div class="wf-cta-content">
+                  <div class="wf-cta-title">Pronto para criar o teu patch?</div>
+                  <div class="wf-cta-trust">Sem conta necessária · Entrega em 7–10 dias</div>
+                  <div class="wf-hero-btns">
+                    <div class="wf-real-btn wf-real-btn--gold">Personalizar agora</div>
+                    <div class="wf-real-btn wf-real-btn--outline">Ver coleções</div>
+                  </div>
+                </div>
               </div>
+
             </div>
+          </div>
+
+          <!-- Painel de informação -->
+          <div class="wf-info-panel" id="wf-info-panel">
+            <button class="wf-info-close" id="wf-info-close" aria-label="Fechar">✕</button>
+            <div class="wf-info-content" id="wf-info-content"></div>
           </div>
         </div>
       </div>
 
+      <!-- LISTA VIEW -->
       <div class="home-anatomy" id="home-lista">
+
         <div class="anatomy-block ab-hero">
           <div class="ab-num">①</div>
           <div class="ab-main">
-            <div class="ab-title">Hero</div>
+            <div class="ab-title">Fotografia principal + entrada</div>
+            <div class="ab-desc">Primeira coisa que o visitante vê. Fotografia a cobrir toda a página com texto por cima e dois botões de ação.</div>
             <div class="ab-body">
-              <div class="ab-pill img">Imagem full-width</div>
-              <div class="ab-pill txt">Headline + Subline</div>
-              <div class="ab-pill cta">CTA — Personalizar →</div>
-              <div class="ab-pill cta-sec">CTA — Ver Coleções</div>
+              <div class="ab-pill img">Fotografia de fundo</div>
+              <div class="ab-pill txt">Frase de impacto + subtítulo</div>
+              <div class="ab-pill cta">Botão — Personalizar agora</div>
+              <div class="ab-pill cta-sec">Botão — Ver Coleções</div>
             </div>
           </div>
           <div class="ab-ratio">80% imagem<br>20% texto</div>
@@ -449,12 +485,13 @@
         <div class="anatomy-block ab-trust">
           <div class="ab-num">②</div>
           <div class="ab-main">
-            <div class="ab-title">Barra de Confiança</div>
+            <div class="ab-title">Barra de credibilidade</div>
+            <div class="ab-desc">Faixa escura com 4 pontos que inspiram confiança — patches entregues, avaliações, envio e garantia.</div>
             <div class="ab-body">
-              <div class="ab-pill txt">🧵 +5.000 patches</div>
-              <div class="ab-pill txt">⭐ 4.9 avaliações</div>
-              <div class="ab-pill txt">🚚 Envio PT·ES·DE·USA</div>
-              <div class="ab-pill txt">✅ Garantia</div>
+              <div class="ab-pill txt">+5.000 patches entregues</div>
+              <div class="ab-pill txt">4.9 avaliações</div>
+              <div class="ab-pill txt">Envio PT · ES · DE · USA</div>
+              <div class="ab-pill txt">Garantia de qualidade</div>
             </div>
           </div>
           <div class="ab-ratio">100% texto</div>
@@ -463,11 +500,12 @@
         <div class="anatomy-block ab-customizer">
           <div class="ab-num">③</div>
           <div class="ab-main">
-            <div class="ab-title">Destaque Customizer</div>
+            <div class="ab-title">Como funciona o customizador</div>
+            <div class="ab-desc">Explica em 3 passos simples como o cliente cria o seu patch personalizado — com pré-visualização ao lado.</div>
             <div class="ab-body">
-              <div class="ab-pill img">Preview do Customizer</div>
-              <div class="ab-pill txt">3 passos explicados</div>
-              <div class="ab-pill cta">CTA — Começar agora →</div>
+              <div class="ab-pill img">Pré-visualização do patch</div>
+              <div class="ab-pill txt">3 passos numerados</div>
+              <div class="ab-pill cta">Botão — Começar agora</div>
             </div>
           </div>
           <div class="ab-ratio">50% imagem<br>50% texto</div>
@@ -476,12 +514,13 @@
         <div class="anatomy-block ab-collections">
           <div class="ab-num">④</div>
           <div class="ab-main">
-            <div class="ab-title">Coleções em Destaque</div>
+            <div class="ab-title">Coleções da loja</div>
+            <div class="ab-desc">4 categorias de patches em grelha — cada cartão leva o visitante diretamente à coleção correspondente.</div>
             <div class="ab-body">
-              <div class="ab-pill img">🎮 Gamer</div>
-              <div class="ab-pill img">🎸 Rocker</div>
-              <div class="ab-pill img">🚗 Automotivo</div>
-              <div class="ab-pill img">🏍️ Motoqueiro</div>
+              <div class="ab-pill img">Gamer</div>
+              <div class="ab-pill img">Rocker</div>
+              <div class="ab-pill img">Automotivo</div>
+              <div class="ab-pill img">Motoqueiro</div>
             </div>
           </div>
           <div class="ab-ratio">70% imagem<br>30% texto</div>
@@ -490,10 +529,11 @@
         <div class="anatomy-block ab-social">
           <div class="ab-num">⑤</div>
           <div class="ab-main">
-            <div class="ab-title">Prova Social</div>
+            <div class="ab-title">Avaliações de clientes</div>
+            <div class="ab-desc">Comentários reais de clientes com 5 estrelas — para transmitir confiança a quem visita pela primeira vez.</div>
             <div class="ab-body">
-              <div class="ab-pill img">Galeria UGC (clientes)</div>
-              <div class="ab-pill txt">Reviews ★★★★★</div>
+              <div class="ab-pill txt">Avaliações ★★★★★</div>
+              <div class="ab-pill txt">Fotos de clientes reais</div>
             </div>
           </div>
           <div class="ab-ratio">75% imagem<br>25% texto</div>
@@ -502,14 +542,17 @@
         <div class="anatomy-block ab-cta">
           <div class="ab-num">⑥</div>
           <div class="ab-main">
-            <div class="ab-title">CTA Final</div>
+            <div class="ab-title">Convite para personalizar</div>
+            <div class="ab-desc">Apelo final que fecha a página — reforça a proposta e direciona o visitante para o configurador.</div>
             <div class="ab-body">
-              <div class="ab-pill cta">CTA — Personalizar agora</div>
+              <div class="ab-pill cta">Botão — Personalizar agora</div>
               <div class="ab-pill cta-sec">Ver todas as coleções</div>
+              <div class="ab-pill txt">Sem conta · Entrega em 7–10 dias</div>
             </div>
           </div>
           <div class="ab-ratio">100% texto</div>
         </div>
+
       </div>
     </div>
 
@@ -960,6 +1003,6 @@
 </div>
 
 <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
-<script src="sitemap-patchfy.js?v=10"></script>
+<script src="sitemap-patchfy.js?v=11"></script>
 </body>
 </html>
