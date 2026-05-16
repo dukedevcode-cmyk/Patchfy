@@ -22,12 +22,12 @@ function renderGallery() {
 
   if (refs.length === 0) {
     empty.style.display = '';
-    header.classList.remove('visible');
+    header.style.display = 'none';
     return;
   }
 
   empty.style.display = 'none';
-  header.classList.add('visible');
+  header.style.display = 'flex';
   count.textContent = refs.length + (refs.length === 1 ? ' imagem' : ' imagens');
 
   refs.forEach((ref, i) => {
@@ -66,25 +66,17 @@ function renderGallery() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── Cloudinary: ocultar aviso de setup quando configurado
-  const setupNotice = document.getElementById('refs-setup');
-  if (setupNotice && CLD_CLOUD !== 'YOUR_CLOUD_NAME') {
-    setupNotice.classList.add('hidden');
-  }
-
   // ── PIN gate
-  const pinGate      = document.getElementById('refs-pin-gate');
-  const pinInput     = document.getElementById('refs-pin-input');
-  const pinBtn       = document.getElementById('refs-pin-btn');
-  const pinError     = document.getElementById('refs-pin-error');
-  const uploadZone   = document.getElementById('refs-upload-zone');
-  const refsGallery  = document.getElementById('refs-gallery');
-  const refsGHdr     = document.getElementById('refs-gallery-header');
+  const pinGate    = document.getElementById('refs-pin-gate');
+  const pinInput   = document.getElementById('refs-pin-input');
+  const pinBtn     = document.getElementById('refs-pin-btn');
+  const pinError   = document.getElementById('refs-pin-error');
+  const unlockedEl = document.getElementById('refs-unlocked');
 
   function unlockRefs() {
     sessionStorage.setItem(REFS_AUTH_KEY, '1');
-    pinGate.classList.add('hidden');
-    uploadZone.style.display = '';
+    pinGate.style.display    = 'none';
+    unlockedEl.style.display = '';
     renderGallery();
   }
 
@@ -92,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pinInput.value === REFS_PIN) {
       unlockRefs();
     } else {
-      pinError.classList.add('visible');
+      pinError.style.display = 'block';
       pinInput.classList.add('shake');
       pinInput.value = '';
       setTimeout(() => pinInput.classList.remove('shake'), 400);
@@ -105,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     pinBtn.addEventListener('click', tryPin);
     pinInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryPin(); });
-    pinInput.addEventListener('input', () => pinError.classList.remove('visible'));
+    pinInput.addEventListener('input', () => { pinError.style.display = 'none'; });
   }
 
   // ── Upload button
@@ -171,8 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
-  renderGallery();
 
   // ── Navegação entre views
   const navItems       = document.querySelectorAll('.nav-item[data-view]');

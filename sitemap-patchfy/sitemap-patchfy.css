@@ -1145,71 +1145,98 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: 44px 24px;
+  gap: 12px;
+  padding: 56px 32px 48px;
   background: #111;
   border: 1px solid #1e1e1e;
-  border-radius: 12px;
+  border-radius: 14px;
   text-align: center;
   margin-bottom: 24px;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
 }
-.refs-pin-gate.hidden { display: none; }
-.refs-pin-icon { font-size: 28px; line-height: 1; }
-.refs-pin-title { font-size: 15px; font-weight: 700; color: #ccc; }
-.refs-pin-desc { font-size: 12px; color: #555; max-width: 280px; line-height: 1.5; }
+.refs-pin-lock {
+  width: 56px;
+  height: 56px;
+  background: #161616;
+  border: 1px solid #2a2a2a;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+.refs-pin-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ddd;
+  margin: 0;
+}
+.refs-pin-desc {
+  font-size: 12.5px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 240px;
+}
 .refs-pin-form {
   display: flex;
   gap: 8px;
-  margin-top: 6px;
+  margin-top: 8px;
   align-items: center;
 }
 .refs-pin-input {
-  width: 120px;
-  padding: 10px 14px;
-  background: #0a0a0a;
+  width: 110px;
+  padding: 11px 14px;
+  background: #0d0d0d;
   border: 1px solid #2a2a2a;
   border-radius: 8px;
   color: #fff;
   font-family: 'Inter', sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.25em;
   text-align: center;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
-.refs-pin-input:focus { border-color: #C4A484; }
+.refs-pin-input:focus {
+  border-color: #C4A484;
+  box-shadow: 0 0 0 3px rgba(196,164,132,0.08);
+}
 .refs-pin-input.shake {
   animation: pinShake 0.35s ease;
   border-color: #ef4444;
 }
 @keyframes pinShake {
   0%,100% { transform: translateX(0); }
-  20%      { transform: translateX(-6px); }
-  40%      { transform: translateX(6px); }
+  20%      { transform: translateX(-7px); }
+  40%      { transform: translateX(7px); }
   60%      { transform: translateX(-4px); }
   80%      { transform: translateX(4px); }
 }
 .refs-pin-btn {
-  padding: 10px 20px;
-  background: #1a1a1a;
-  color: #888;
-  border: 1px solid #2a2a2a;
+  padding: 11px 22px;
+  background: #C4A484;
+  color: #111;
+  border: none;
   border-radius: 8px;
   font-family: 'Inter', sans-serif;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
 }
-.refs-pin-btn:hover { background: #222; color: #ccc; border-color: #333; }
+.refs-pin-btn:hover { background: #d4b494; transform: translateY(-1px); }
+.refs-pin-btn:active { transform: translateY(0); }
 .refs-pin-error {
-  font-size: 11px;
+  font-size: 11.5px;
   color: #ef4444;
-  display: none;
-  margin-top: 2px;
+  margin: 0;
 }
-.refs-pin-error.visible { display: block; }
 
 .refs-upload-zone {
   display: flex;
