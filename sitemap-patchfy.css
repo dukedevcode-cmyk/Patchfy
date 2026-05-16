@@ -1769,7 +1769,6 @@ body {
   /* timeline — carrossel mobile: 1 card por vez */
   .tl-stage {
     grid-template-columns: 1fr;
-    min-height: 0 !important;
   }
   .tl-ccard--prev,
   .tl-ccard--next { display: none; }
