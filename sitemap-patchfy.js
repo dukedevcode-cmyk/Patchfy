@@ -38,13 +38,16 @@ const TL_DAYS = [
     date: '2026-05-17',
     label: 'Dia 4',
     tasks: [
-      { text: 'Formatação do layout da home no Shopify', done: false },
+      { text: 'Formatação do layout da home no Shopify', done: true },
     ]
   },
   {
     date: '2026-05-18',
     label: 'Dia 5',
-    tasks: []
+    tasks: [
+      { text: 'Finalizar a home', done: false },
+      { text: 'Iniciar formatação do Customizer', done: false },
+    ]
   },
 ];
 
