@@ -49,6 +49,16 @@ const TL_DAYS = [
       { text: 'Iniciar formatação do Customizer', done: false },
     ]
   },
+  {
+    date: '2026-05-19',
+    label: 'Dia 6',
+    tasks: []
+  },
+  {
+    date: '2026-05-20',
+    label: 'Dia 7',
+    tasks: []
+  },
 ];
 
 function getTLTodayIdx() {
