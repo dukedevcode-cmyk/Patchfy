@@ -87,16 +87,6 @@ const TL_DAYS = [
       { text: 'Definir cupons', done: false },
     ]
   },
-  {
-    date: '2026-05-23',
-    label: 'Dia 10',
-    tasks: [
-      { text: 'Adicionais: Cupons de desconto e automações', done: false },
-      { text: 'Adicionais: Cadastro de clientes — popups, leads e funil de conversão', done: false },
-      { text: 'Adicionais: Institucional — Políticas', done: false },
-      { text: 'Adicionais: Email marketing e automações', done: false },
-    ]
-  },
 ];
 
 function getTLTodayIdx() {
