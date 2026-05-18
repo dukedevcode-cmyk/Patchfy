@@ -287,6 +287,50 @@ function renderGallery() {
   });
 }
 
+// ── Project checklist
+const PROJECT_CHECKLIST = [
+  { text: 'Home',                    done: false },
+  { text: 'Página de produto',       done: false },
+  { text: 'Customizer',              done: false },
+  { text: 'Coleções',                done: false },
+  { text: 'Gateway de pagamentos',   done: false },
+  { text: 'Mercados',                done: false },
+  { text: 'Frete & Taxas',           done: false },
+  { text: 'Cupons',                  done: false },
+];
+
+function renderProjectChecklist() {
+  const el = document.getElementById('proj-checklist');
+  if (!el) return;
+
+  const total   = PROJECT_CHECKLIST.length;
+  const doneQty = PROJECT_CHECKLIST.filter(function(i) { return i.done; }).length;
+  const allDone = doneQty === total;
+  const pct     = Math.round((doneQty / total) * 100);
+
+  var html = '<div class="proj-cl__progress">' +
+    '<div class="proj-cl__prog-track"><div class="proj-cl__prog-fill" style="width:' + pct + '%"></div></div>' +
+    '<span class="proj-cl__prog-label">' + doneQty + ' / ' + total + ' concluídos</span>' +
+  '</div>';
+
+  html += '<ul class="proj-cl__list">';
+  PROJECT_CHECKLIST.forEach(function(item) {
+    var checkHtml = item.done
+      ? '<span class="proj-cl__check proj-cl__check--done"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6L5 9L10 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
+      : '<span class="proj-cl__check proj-cl__check--empty"></span>';
+    html += '<li class="proj-cl__item' + (item.done ? ' proj-cl__item--done' : '') + '">' +
+      checkHtml + '<span class="proj-cl__text">' + item.text + '</span>' +
+    '</li>';
+  });
+  html += '</ul>';
+
+  if (allDone) {
+    html += '<div class="proj-cl__all-done">Projeto pronto para entrega</div>';
+  }
+
+  el.innerHTML = html;
+}
+
 // ── Wireframe info panel data
 const WF_INFO = {
   hero: {
@@ -495,6 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   renderTLCarousel();
+  renderProjectChecklist();
 
   // ── Toggle colapsar/expandir (árvore)
   document.querySelectorAll('.toggleable').forEach(box => {
