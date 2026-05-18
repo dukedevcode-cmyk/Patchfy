@@ -55,6 +55,7 @@ const TL_DAYS = [
     tasks: [
       { text: 'Otimizar customizer para iOS (Safari)', done: false },
       { text: 'Iniciar edição e adição de imagens ao site', done: false },
+      { text: 'Criação de página de produto', done: false },
     ]
   },
   {
