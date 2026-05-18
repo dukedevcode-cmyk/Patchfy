@@ -47,15 +47,16 @@ const TL_DAYS = [
     tasks: [
       { text: 'Finalizar a home', done: false },
       { text: 'Iniciar formatação do Customizer', done: false },
+      { text: 'Otimizar customizer para iOS (Safari)', done: false },
     ]
   },
   {
     date: '2026-05-19',
     label: 'Dia 6',
     tasks: [
-      { text: 'Otimizar customizer para iOS (Safari)', done: false },
       { text: 'Iniciar edição e adição de imagens ao site', done: false },
       { text: 'Criação de página de produto', done: false },
+      { text: 'Finalizar o Customizer', done: false },
     ]
   },
   {
