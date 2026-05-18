@@ -52,12 +52,45 @@ const TL_DAYS = [
   {
     date: '2026-05-19',
     label: 'Dia 6',
-    tasks: []
+    tasks: [
+      { text: 'Otimizar customizer para iOS (Safari)', done: false },
+      { text: 'Iniciar edição e adição de imagens ao site', done: false },
+    ]
   },
   {
     date: '2026-05-20',
     label: 'Dia 7',
-    tasks: []
+    tasks: [
+      { text: 'Definir produtos e coleções', done: false },
+      { text: 'Adicionar fotos de produtos e coleções', done: false },
+    ]
+  },
+  {
+    date: '2026-05-21',
+    label: 'Dia 8',
+    tasks: [
+      { text: 'Linkar URL da Patchfy com Shopify', done: false },
+      { text: 'Configurar API de pagamentos', done: false },
+      { text: 'Fretes & Taxas', done: false },
+      { text: 'Embalagens', done: false },
+    ]
+  },
+  {
+    date: '2026-05-22',
+    label: 'Dia 9',
+    tasks: [
+      { text: 'Revisão final e entrega', done: false },
+    ]
+  },
+  {
+    date: '2026-05-23',
+    label: 'Dia 10',
+    tasks: [
+      { text: 'Adicionais: Cupons de desconto e automações', done: false },
+      { text: 'Adicionais: Cadastro de clientes — popups, leads e funil de conversão', done: false },
+      { text: 'Adicionais: Institucional — Políticas', done: false },
+      { text: 'Adicionais: Email marketing e automações', done: false },
+    ]
   },
 ];
 
