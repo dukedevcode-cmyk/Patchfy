@@ -72,9 +72,8 @@ const TL_DAYS = [
     label: 'Dia 8',
     tasks: [
       { text: 'Linkar URL da Patchfy com Shopify', done: false },
+      { text: 'Definir Mercados', done: false },
       { text: 'Configurar API de pagamentos', done: false },
-      { text: 'Fretes & Taxas', done: false },
-      { text: 'Embalagens', done: false },
     ]
   },
   {
@@ -82,6 +81,9 @@ const TL_DAYS = [
     label: 'Dia 9',
     tasks: [
       { text: 'Revisão final e entrega', done: false },
+      { text: 'Fretes & Taxas', done: false },
+      { text: 'Embalagens', done: false },
+      { text: 'Definir cupons', done: false },
     ]
   },
   {
@@ -290,14 +292,14 @@ function renderGallery() {
 
 // ── Project checklist
 const PROJECT_CHECKLIST = [
-  { text: 'Home',                    done: false },
-  { text: 'Página de produto',       done: false },
-  { text: 'Customizer',              done: false },
-  { text: 'Coleções',                done: false },
-  { text: 'Gateway de pagamentos',   done: false },
-  { text: 'Mercados',                done: false },
-  { text: 'Frete & Taxas',           done: false },
-  { text: 'Cupons',                  done: false },
+  { text: 'Home',                    date: '18/05', done: false },
+  { text: 'Customizer',              date: '19/05', done: false },
+  { text: 'Página de produto',       date: '20/05', done: false },
+  { text: 'Coleções',                date: '20/05', done: false },
+  { text: 'Gateway de pagamentos',   date: '21/05', done: false },
+  { text: 'Mercados',                date: '21/05', done: false },
+  { text: 'Frete & Taxas',           date: '22/05', done: false },
+  { text: 'Cupons',                  date: '22/05', done: false },
 ];
 
 function renderProjectChecklist() {
@@ -319,8 +321,11 @@ function renderProjectChecklist() {
     var checkHtml = item.done
       ? '<span class="proj-cl__check proj-cl__check--done"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6L5 9L10 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
       : '<span class="proj-cl__check proj-cl__check--empty"></span>';
+    var dateHtml = item.date ? '<span class="proj-cl__date">' + item.date + '</span>' : '';
     html += '<li class="proj-cl__item' + (item.done ? ' proj-cl__item--done' : '') + '">' +
-      checkHtml + '<span class="proj-cl__text">' + item.text + '</span>' +
+      checkHtml +
+      '<span class="proj-cl__text">' + item.text + '</span>' +
+      dateHtml +
     '</li>';
   });
   html += '</ul>';
