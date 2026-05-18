@@ -44,10 +44,11 @@ const TL_DAYS = [
   {
     date: '2026-05-18',
     label: 'Dia 5',
+    done: true,
     tasks: [
-      { text: 'Finalizar a home', done: false },
-      { text: 'Iniciar formatação do Customizer', done: false },
-      { text: 'Otimizar customizer para iOS (Safari)', done: false },
+      { text: 'Finalizar a home', done: true },
+      { text: 'Iniciar formatação do Customizer', done: true },
+      { text: 'Otimizar customizer para iOS (Safari)', done: true },
     ]
   },
   {
