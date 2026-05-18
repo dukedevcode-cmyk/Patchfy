@@ -65,6 +65,7 @@ const TL_DAYS = [
     tasks: [
       { text: 'Definir produtos e coleções', done: false },
       { text: 'Adicionar fotos de produtos e coleções', done: false },
+      { text: 'Configuração da página de produto', done: false },
     ]
   },
   {
