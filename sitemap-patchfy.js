@@ -55,33 +55,32 @@ const TL_DAYS = [
     date: '2026-05-19',
     label: 'Dia 6',
     tasks: [
-      { text: 'Iniciar edição e adição de imagens ao site', done: false },
-      { text: 'Criação de página de produto', done: false },
-      { text: 'Finalizar o Customizer', done: false },
+      { text: 'Finalizar o Customizer', done: true },
     ]
   },
   {
     date: '2026-05-20',
     label: 'Dia 7',
+    tasks: []
+  },
+  {
+    date: '2026-05-21',
+    label: 'Dia 8',
     tasks: [
+      { text: 'Iniciar edição e adição de imagens ao site', done: false },
+      { text: 'Criação de página de produto', done: false },
       { text: 'Definir produtos e coleções', done: false },
       { text: 'Adicionar fotos de produtos e coleções', done: false },
       { text: 'Configuração da página de produto', done: false },
     ]
   },
   {
-    date: '2026-05-21',
-    label: 'Dia 8',
+    date: '2026-05-22',
+    label: 'Dia 9',
     tasks: [
       { text: 'Linkar URL da Patchfy com Shopify', done: false },
       { text: 'Definir Mercados', done: false },
       { text: 'Configurar API de pagamentos', done: false },
-    ]
-  },
-  {
-    date: '2026-05-22',
-    label: 'Dia 9',
-    tasks: [
       { text: 'Revisão final e entrega', done: false },
       { text: 'Fretes & Taxas', done: false },
       { text: 'Embalagens', done: false },
@@ -284,8 +283,8 @@ function renderGallery() {
 
 // ── Project checklist
 const PROJECT_CHECKLIST = [
-  { text: 'Home',                    date: '18/05', done: false },
-  { text: 'Customizer',              date: '19/05', done: false },
+  { text: 'Home',                    date: '18/05', done: true },
+  { text: 'Customizer',              date: '19/05', done: true },
   { text: 'Página de produto',       date: '20/05', done: false },
   { text: 'Coleções',                date: '20/05', done: false },
   { text: 'Gateway de pagamentos',   date: '21/05', done: false },
