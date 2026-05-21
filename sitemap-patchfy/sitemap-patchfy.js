@@ -61,14 +61,15 @@ const TL_DAYS = [
   {
     date: '2026-05-20',
     label: 'Dia 7',
-    tasks: []
+    tasks: [
+      { text: 'Iniciar edição e adição de imagens ao site', done: false },
+      { text: 'Criação de página de produto', done: false },
+    ]
   },
   {
     date: '2026-05-21',
     label: 'Dia 8',
     tasks: [
-      { text: 'Iniciar edição e adição de imagens ao site', done: false },
-      { text: 'Criação de página de produto', done: false },
       { text: 'Definir produtos e coleções', done: false },
       { text: 'Adicionar fotos de produtos e coleções', done: false },
       { text: 'Configuração da página de produto', done: false },
